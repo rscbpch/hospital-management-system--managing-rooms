@@ -3,11 +3,21 @@ class ContactInfo {
   final String email;
   final String address;
 
-  const ContactInfo({
-    required this.phone, 
-    required this.email, 
-    required this.address
-  });
+  const ContactInfo({required this.phone, required this.email, required this.address});
+
+  Map<String, dynamic> toJson() => {
+    'phone': phone, 
+    'email': email, 
+    'address': address
+  };
+
+  factory ContactInfo.fromJson(Map<String, dynamic> json) {
+    return ContactInfo(
+      phone: json['phone'] as String,
+      email: json['email'] as String,
+      address: json['address'] as String,
+    );
+  }
 
   @override
   String toString() {
@@ -17,26 +27,7 @@ class ContactInfo {
     Address: $address''';
   }
 
-  ContactInfo copyWith({
-    String? phone,
-    String? email,
-    String? address,
-  }) {
-    return ContactInfo(
-      phone: phone ?? this.phone,
-      email: email ?? this.email,
-      address: address ?? this.address,
-    );
+  ContactInfo copyWith({String? phone, String? email, String? address}) {
+    return ContactInfo(phone: phone ?? this.phone, email: email ?? this.email, address: address ?? this.address);
   }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ContactInfo &&
-          phone == other.phone &&
-          email == other.email &&
-          address == other.address;
-
-  @override
-  int get hashCode => Object.hash(phone, email, address);
 }

@@ -11,8 +11,26 @@ class Reservation {
   final Patient patient;
   final Bed bed;
   final ReservationStatus status;
-  final DateTime reservedDare;
+  final DateTime reservedDate;
 
-  Reservation({String? id, required this.patient, required this.bed, required this.status, required this.reservedDare}) 
+  Reservation({String? id, required this.patient, required this.bed, required this.status, required this.reservedDate}) 
     : id = id ?? uuid.v4();
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'patientId': patient.id,
+    'bedId': bed.id,
+    'status': status.name,
+    'reservedDate': reservedDate.toIso8601String(),
+  };
+
+  factory Reservation.fromJson(Map<String, dynamic> json, Patient patient, Bed bed) {
+    return Reservation(
+      id: json['id'],
+      patient: patient,
+      bed: bed,
+      status: ReservationStatus.values.firstWhere((e) => e.name == json['status']),
+      reservedDate: DateTime.parse(json['reservedDate']),
+    );
+  }
 }

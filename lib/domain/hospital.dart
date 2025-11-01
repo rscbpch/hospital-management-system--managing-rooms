@@ -9,4 +9,21 @@ class Hospital {
   
   Hospital({String? id, required this.name, required this.address}) 
     : id = id ?? uuid.v4();
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name': name,
+    'address': address,
+  };
+
+  factory Hospital.fromJson(Map<String, dynamic> json) {
+    return Hospital(
+      id: json['id'],
+      name: json['name'],
+      address: json['address'],
+    );
+  }
+
+  @override
+  String toString() => 'Hospital $name, Address: $address';
 }

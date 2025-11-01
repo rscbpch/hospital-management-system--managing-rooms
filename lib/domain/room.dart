@@ -1,32 +1,38 @@
+import 'package:hospital_management_system__managing_rooms/domain/bed.dart';
 import 'package:uuid/uuid.dart';
 
 var uuid = Uuid();
 
-enum RoomType {
-  generalWard(8),
-  semiPrivate(2),
-  private(1),
-  surgical(2),
-  icu(1),
-  isolation(1),
-  maternity(2);
-
-  final int defaultBedCount;
-  const RoomType(this.defaultBedCount);
-}
+enum RoomType { generalWard, semiPrivate, private, surgical, icu, isolation, maternity }
 
 class Room {
   final String id;
   final String roomNumber;
   final RoomType type;
-  final List<String> bedNumbers;
+  final List<Bed> beds;
 
-  Room({String? id, required this.roomNumber, required this.type, List<String>? bedNumbers})
+  Room({String? id, required this.roomNumber, required this.type, List<Bed>? beds})  
     : id = id ?? uuid.v4(),
-      bedNumbers = bedNumbers ?? List.generate(type.defaultBedCount, (index) => '$roomNumber-${index + 1}');
+      beds = beds ?? [];
+
+  bool hasAvailableBeds() => beds.any((bed) => bed.status == BedStatus.available);
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'roomNumber': roomNumber,
+    'type': type.name,
+    'beds': beds.map((b) => b.toJson()).toList(),
+  };
+
+  factory Room.fromJson(Map<String, dynamic> json, List<Bed> beds) {
+    return Room(
+      id: json['id'],
+      roomNumber: json['roomNumber'],
+      type: RoomType.values.firstWhere((e) => e.name == json['type']),
+      beds: beds,
+    );
+  }
 
   @override
-  String toString() {
-    return 'Room{id: $id, roomNumber: $roomNumber, type: $type, bedNumbers: $bedNumbers}';
-  }
+  String toString() => 'Room $roomNumber (${type.name}) - ${beds.length} beds';
 }
