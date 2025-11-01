@@ -17,11 +17,11 @@ class Reservation {
     : id = id ?? uuid.v4();
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'patientId': patient.id,
-    'bedId': bed.id,
-    'status': status.name,
-    'reservedDate': reservedDate.toIso8601String(),
+    'id': id, 
+    'patientId': patient.id, 
+    'bedId': bed.id, 
+    'status': status.name, 
+    'reservedDate': reservedDate.toIso8601String()
   };
 
   factory Reservation.fromJson(Map<String, dynamic> json, Patient patient, Bed bed) {
@@ -33,4 +33,7 @@ class Reservation {
       reservedDate: DateTime.parse(json['reservedDate']),
     );
   }
+
+  @override
+  String toString() => 'Reservation(id: $id, patient: ${patient.name}, bed: ${bed.bedNumber}, status: ${status.name}, reservedDate: $reservedDate)';
 }

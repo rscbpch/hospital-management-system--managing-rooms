@@ -14,7 +14,7 @@ class BedAllocation {
   final DateTime startDate;
   final DateTime endDate;
 
-  BedAllocation({String? id, required this.patient, required this.bed, this.status = AllocationStatus.active, required this.startDate, required this.endDate}) 
+  BedAllocation({String? id, required this.patient, required this.bed, this.status = AllocationStatus.active, required this.startDate, required this.endDate})
     : id = id ?? uuid.v4();
 
   Map<String, dynamic> toJson() => {
@@ -36,4 +36,7 @@ class BedAllocation {
       status: AllocationStatus.values.firstWhere((e) => e.name == json['status']),
     );
   }
+
+  @override
+  String toString() => 'BedAllocation(id: $id, patient: ${patient.name}, bed: ${bed.bedNumber}, status: ${status.name}, startDate: $startDate, endDate: $endDate)';
 }

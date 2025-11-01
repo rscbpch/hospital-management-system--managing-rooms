@@ -15,8 +15,6 @@ class Room {
     : id = id ?? uuid.v4(),
       beds = beds ?? [];
 
-  bool hasAvailableBeds() => beds.any((bed) => bed.status == BedStatus.available);
-
   Map<String, dynamic> toJson() => {
     'id': id,
     'roomNumber': roomNumber,
@@ -35,4 +33,6 @@ class Room {
 
   @override
   String toString() => 'Room $roomNumber (${type.name}) - ${beds.length} beds';
+
+  bool isFull() => beds.any((bed) => bed.status == BedStatus.available);
 }

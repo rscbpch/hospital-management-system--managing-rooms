@@ -16,11 +16,25 @@ class Bed {
   Bed({String? id, required this.room, required this.bedNumber, this.status = BedStatus.available, this.currentAllocation}) 
     : id = id ?? uuid.v4();
 
-  Map<String, dynamic> toJson() => {'id': id, 'roomId': room.id, 'bedNumber': bedNumber, 'status': status.name, 'currentAllocationId': currentAllocation?.id};
+  Map<String, dynamic> toJson() => {
+    'id': id, 
+    'roomId': room.id, 
+    'bedNumber': bedNumber, 
+    'status': status.name, 
+    'currentAllocationId': currentAllocation?.id
+  };
 
   factory Bed.fromJson(Map<String, dynamic> json, Room room) {
-    return Bed(id: json['id'], room: room, bedNumber: json['bedNumber'], status: BedStatus.values.firstWhere((e) => e.name == json['status']));
+    return Bed(
+      id: json['id'], 
+      room: room, 
+      bedNumber: json['bedNumber'], 
+      status: BedStatus.values.firstWhere((e) => e.name == json['status'])
+    );
   }
+
+  @override
+  String toString() => 'Bed(id: $id, bedNumber: $bedNumber, room: ${room.roomNumber}, status: ${status.name})';
 
   void occupy(BedAllocation allocation) {
     status = BedStatus.occupied;

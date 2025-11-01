@@ -24,10 +24,10 @@ class Patient {
   factory Patient.fromJson(Map<String, dynamic> json) {
     return Patient(
       id: json['id'] as String,
-      name: json['name'] as String, 
-      age: json['age'] as int, 
-      gender: json['gender'] as String, 
-      contactInfo: ContactInfo.fromJson(json['contactInfo'])
+      name: json['name'] as String,
+      age: json['age'] as int,
+      gender: json['gender'] as String,
+      contactInfo: ContactInfo.fromJson(json['contactInfo']),
     );
   }
 
@@ -39,6 +39,9 @@ class Patient {
     Gender: $gender
     Contact Information: ${contactInfo.toString()}''';
   }
+
+  @override
+  String toString() => 'Patient(id: $id, name: $name, age: $age, gender: $gender)';
 
   void updateContactInfo(ContactInfo info) {
     contactInfo = info;
