@@ -13,9 +13,9 @@ class ContactInfo {
 
   factory ContactInfo.fromJson(Map<String, dynamic> json) {
     return ContactInfo(
-      phone: json['phone'] as String,
-      email: json['email'] as String,
-      address: json['address'] as String,
+      phone: json['phone'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      address: json['address'] as String? ?? ''
     );
   }
 

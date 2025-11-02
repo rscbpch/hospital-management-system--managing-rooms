@@ -1,0 +1,56 @@
+{
+  "bedAllocations": [
+    {
+      "id": "1a2b3c4d-5e6f-4789-a012-345678901234",
+      "patientId": "d4e5f6a7-b8c9-4789-d012-345678901234",
+      "bedId": "3f4a5b6c-7d8e-4789-e012-345678901234",
+      "startDate": "2024-01-15T10:00:00.000Z",
+      "endDate": null,
+      "status": "active",
+      "isActive": true,
+      "durationDays": 657,
+      "patientName": "Mary Williams",
+      "bedNumber": "A",
+      "roomNumber": "201"
+    },
+    {
+      "id": "2b3c4d5e-6f7a-4789-b012-345678901234",
+      "patientId": "a1b2c3d4-e5f6-4789-a012-345678901234",
+      "bedId": "0c1d2e3f-4a5b-4789-b012-345678901234",
+      "startDate": "2024-01-16T08:00:00.000Z",
+      "endDate": null,
+      "status": "active",
+      "isActive": true,
+      "durationDays": 656,
+      "patientName": "John Doe",
+      "bedNumber": "A",
+      "roomNumber": "102"
+    },
+    {
+      "id": "3c4d5e6f-7a8b-4789-c012-345678901234",
+      "patientId": "e5f6a7b8-c9d0-4789-e012-345678901234",
+      "bedId": "1d2e3f4a-5b6c-4789-c012-345678901234",
+      "startDate": "2024-01-17T14:00:00.000Z",
+      "endDate": null,
+      "status": "active",
+      "isActive": true,
+      "durationDays": 654,
+      "patientName": "David Brown",
+      "bedNumber": "B",
+      "roomNumber": "102"
+    },
+    {
+      "id": "4d5e6f7a-8b9c-4789-d012-345678901234",
+      "patientId": "f6a7b8c9-d0e1-4789-f012-345678901234",
+      "bedId": "8e9f0a1b-2c3d-4789-d012-345678901234",
+      "startDate": "2024-01-18T09:00:00.000Z",
+      "endDate": null,
+      "status": "active",
+      "isActive": true,
+      "durationDays": 654,
+      "patientName": "Sarah Davis",
+      "bedNumber": "A",
+      "roomNumber": "401"
+    }
+  ]
+}

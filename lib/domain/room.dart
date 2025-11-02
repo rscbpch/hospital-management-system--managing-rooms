@@ -11,28 +11,67 @@ class Room {
   final RoomType type;
   final List<Bed> beds;
 
-  Room({String? id, required this.roomNumber, required this.type, List<Bed>? beds})  
-    : id = id ?? uuid.v4(),
-      beds = beds ?? [];
-
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'roomNumber': roomNumber,
-    'type': type.name,
-    'beds': beds.map((b) => b.toJson()).toList(),
-  };
+  Room({String? id, required this.roomNumber, required this.type, List<Bed>? beds}) 
+    : id = id ?? uuid.v4(), beds = beds ?? [];
 
   factory Room.fromJson(Map<String, dynamic> json, List<Bed> beds) {
+    final roomTypeString = json['type'] as String? ?? 'generalWard';
+    final parsedType = RoomType.values.firstWhere((e) => e.name == roomTypeString, orElse: () => RoomType.generalWard);
+
     return Room(
-      id: json['id'],
-      roomNumber: json['roomNumber'],
-      type: RoomType.values.firstWhere((e) => e.name == json['type']),
-      beds: beds,
+      id: json['id'] as String?, 
+      roomNumber: json['roomNumber'] as String? ?? '', 
+      type: parsedType, beds: beds
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'id': id, 
+    'roomNumber': roomNumber, 
+    'type': type.name, 
+    'beds': beds.map((b) => b.toJson()).toList()
+  };
 
   @override
   String toString() => 'Room $roomNumber (${type.name}) - ${beds.length} beds';
 
-  bool isFull() => beds.any((bed) => bed.status == BedStatus.available);
+  // Checks if the room is full (no available beds)
+  bool isFull() {
+    return !beds.any((bed) => bed.status == BedStatus.available);
+  }
+
+  // Gets list of available beds in the room
+  List<Bed> getAvailableBeds() {
+    return beds.where((bed) => bed.status == BedStatus.available).toList();
+  }
+
+  // Adds a bed to the room
+  void addBed(Bed bed) {
+    if (bed.room.id != id) {
+      throw ArgumentError('Bed belongs to a different room. Bed room: ${bed.room.id}, This room: $id');
+    }
+    if (beds.any((b) => b.id == bed.id)) {
+      throw ArgumentError('Bed with id ${bed.id} already exists in this room');
+    }
+    beds.add(bed);
+  }
+
+  // Removes a bed from the room by ID
+  bool removeBed(String bedId) {
+    final bedIndex = beds.indexWhere((bed) => bed.id == bedId);
+    if (bedIndex == -1) {
+      return false; 
+    }
+
+    final bed = beds[bedIndex];
+    if (bed.status != BedStatus.available) {
+      throw StateError('Cannot remove bed that is ${bed.status.name}. Bed must be available.');
+    }
+
+    beds.removeAt(bedIndex);
+    return true; 
+  }
+
+  // Checks for available beds
+  bool hasAvailableBeds() => beds.any((bed) => bed.status == BedStatus.available);
 }

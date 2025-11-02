@@ -1,0 +1,520 @@
+import 'dart:io';
+import 'dart:convert';
+import 'package:hospital_management_system__managing_rooms/data/patient_repository.dart';
+import 'package:hospital_management_system__managing_rooms/data/bed_repository.dart';
+import 'package:hospital_management_system__managing_rooms/data/room_repository.dart';
+import 'package:hospital_management_system__managing_rooms/data/ward_repository.dart';
+import 'package:hospital_management_system__managing_rooms/data/hospital_repository.dart';
+import 'package:hospital_management_system__managing_rooms/data/bed_allocation_repository.dart';
+import 'package:hospital_management_system__managing_rooms/data/reservation_repository.dart';
+import 'package:hospital_management_system__managing_rooms/domain/patient.dart';
+import 'package:hospital_management_system__managing_rooms/domain/bed.dart';
+import 'package:hospital_management_system__managing_rooms/domain/room.dart';
+import 'package:hospital_management_system__managing_rooms/domain/ward.dart';
+import 'package:hospital_management_system__managing_rooms/domain/hospital.dart';
+import 'package:hospital_management_system__managing_rooms/domain/bed_allocation.dart';
+import 'package:hospital_management_system__managing_rooms/domain/reservation.dart';
+import 'package:hospital_management_system__managing_rooms/domain/value_objects/contact_info.dart';
+import 'package:hospital_management_system__managing_rooms/domain/services/bed_allocation_service.dart';
+
+/// Ensures directory exists and creates file if it doesn't exist
+void ensureFileExists(String filePath) {
+  final file = File(filePath);
+  final directory = file.parent;
+
+  if (!directory.existsSync()) {
+    directory.createSync(recursive: true);
+  }
+
+  if (!file.existsSync()) {
+    final fileName = file.path.split('/').last.replaceAll('.json', '');
+    final data = <String, dynamic>{fileName: []};
+    file.writeAsStringSync(jsonEncode(data));
+  }
+}
+
+class RoomManagementSystem {
+  final String jsonDir = 'data/json';
+
+  late final PatientRepository patientRepo;
+  late final BedRepository bedRepo;
+  late final RoomRepository roomRepo;
+  late final WardRepository wardRepo;
+  late final HospitalRepository hospitalRepo;
+  late final BedAllocationRepository allocationRepo;
+  late final ReservationRepository reservationRepo;
+
+  List<Patient> patients = [];
+  List<Bed> beds = [];
+  List<Room> rooms = [];
+  List<Ward> wards = [];
+  List<Hospital> hospitals = [];
+  List<BedAllocation> allocations = [];
+  List<Reservation> reservations = [];
+
+  Map<String, Patient> patientById = {};
+  Map<String, Bed> bedById = {};
+  Map<String, Room> roomById = {};
+  Map<String, Ward> wardById = {};
+
+  BedAllocationService? allocationService;
+  Hospital? currentHospital;
+
+  void initialize() {
+    final patientPath = '$jsonDir/patients.json';
+    final bedPath = '$jsonDir/beds.json';
+    final roomPath = '$jsonDir/rooms.json';
+    final wardPath = '$jsonDir/wards.json';
+    final hospitalPath = '$jsonDir/hospitals.json';
+    final allocationPath = '$jsonDir/bed_allocations.json';
+    final reservationPath = '$jsonDir/reservations.json';
+
+    ensureFileExists(patientPath);
+    ensureFileExists(bedPath);
+    ensureFileExists(roomPath);
+    ensureFileExists(wardPath);
+    ensureFileExists(hospitalPath);
+    ensureFileExists(allocationPath);
+    ensureFileExists(reservationPath);
+
+    patientRepo = PatientRepository(patientPath);
+    bedRepo = BedRepository(bedPath);
+    roomRepo = RoomRepository(roomPath);
+    wardRepo = WardRepository(wardPath);
+    hospitalRepo = HospitalRepository(hospitalPath);
+    allocationRepo = BedAllocationRepository(allocationPath);
+    reservationRepo = ReservationRepository(reservationPath);
+
+    loadAllData();
+  }
+
+  void loadAllData() {
+    try {
+      // Load Patients
+      patients = patientRepo.readPatients();
+      patientById = {for (var p in patients) p.id: p};
+
+      // Load Rooms 
+      List<Room> loadedRooms = [];
+      Map<String, List<String>> roomBedIdsMap = {};
+
+      final roomFile = File('$jsonDir/rooms.json');
+      if (roomFile.existsSync()) {
+        final content = roomFile.readAsStringSync();
+        final data = jsonDecode(content) as Map<String, dynamic>;
+        final roomsJson = data['rooms'] as List<dynamic>? ?? [];
+
+        for (var r in roomsJson) {
+          try {
+            final roomJson = r as Map<String, dynamic>;
+            final bedsJson = roomJson['beds'] as List<dynamic>? ?? [];
+            final bedIds = bedsJson.map((b) => b is String ? b : (b as Map)['id'] as String).whereType<String>().toList();
+            final room = Room.fromJson(roomJson, []);
+            loadedRooms.add(room);
+            roomBedIdsMap[room.id] = bedIds;
+          } catch (e) {
+            print("Warning: skipping invalid room: $e");
+          }
+        }
+      }
+      roomById = {for (var r in loadedRooms) r.id: r};
+
+      // Load Beds
+      beds = bedRepo.readBeds(roomById);
+      bedById = {for (var b in beds) b.id: b};
+
+      // Link beds to rooms
+      for (var room in loadedRooms) {
+        final bedIds = roomBedIdsMap[room.id] ?? [];
+        final roomBeds = bedIds.map((id) => bedById[id]).whereType<Bed>().toList();
+        room.beds.clear();
+        room.beds.addAll(roomBeds);
+        for (var bed in roomBeds) {
+          bed.room = room;
+        }
+      }
+      rooms = loadedRooms;
+
+      // Load Wards
+      wards = wardRepo.readWards(roomById);
+      wardById = {for (var w in wards) w.id: w};
+
+      // Load Hospitals
+      hospitals = hospitalRepo.readHospitals(wardById);
+      if (hospitals.isNotEmpty) {
+        currentHospital = hospitals.first;
+      }
+
+      // Load Allocations
+      allocations = allocationRepo.readBedAllocations(patientById, bedById);
+
+      // Load Reservations
+      reservations = reservationRepo.readReservations(patientById, bedById);
+
+      // Initialize allocation service
+      if (currentHospital != null && wards.isNotEmpty) {
+        allocationService = BedAllocationService(repository: allocationRepo, wards: wards, rooms: rooms, beds: beds, allocations: allocations);
+      }
+
+      print('Data loaded successfully');
+      print('Patients: ${patients.length}');
+      print('  Beds: ${beds.length}');
+      print('  Rooms: ${rooms.length}');
+      print('  Wards: ${wards.length}');
+      print('  Hospitals: ${hospitals.length}');
+    } catch (e) {
+      print('Error loading data: $e');
+    }
+  }
+
+  void saveAllData() {
+    try {
+      patientRepo.writePatients(patients);
+
+      // Update beds status from rooms
+      bedRepo.writeBeds(beds);
+
+      // Save rooms with updated bed references
+      roomRepo.writeRooms(rooms);
+
+      wardRepo.writeWards(wards);
+      hospitalRepo.writeHospitals(hospitals);
+      allocationRepo.writeBedAllocations(allocations);
+
+      print('Data saved successfully');
+    } catch (e) {
+      print('Error saving data: $e');
+    }
+  }
+
+  void displayMenu() {
+    print('\n' + '-' * 30);
+    print('ROOM MANAGEMENT SYSTEM');
+    print('-' * 30);
+    print('1. View all rooms');
+    print('2. Add a new room');
+    print('3. Allocate room to patient');
+    print('4. Check room availability');
+    print('5. Release room');
+    print('6. Exit');
+    print('-' * 30);
+    stdout.write('Enter your choice: ');
+  }
+
+  void viewAllRooms() {
+    print('\n=== All Rooms ===');
+    if (rooms.isEmpty) {
+      print('No rooms found.');
+      return;
+    }
+
+    for (var room in rooms) {
+      final availableCount = room.getAvailableBeds().length;
+      final occupiedCount = room.beds.where((b) => b.status == BedStatus.occupied).length;
+      final reservedCount = room.beds.where((b) => b.status == BedStatus.reserved).length;
+
+      print('\nRoom: ${room.roomNumber} (${room.type.name})');
+      print('  ID: ${room.id}');
+      print('  Total Beds: ${room.beds.length}');
+      print('  Available: $availableCount');
+      print('  Occupied: $occupiedCount');
+      print('  Reserved: $reservedCount');
+      print('  Beds:');
+      for (var bed in room.beds) {
+        print('    - Bed ${bed.bedNumber}: ${bed.status.name}');
+      }
+    }
+    print('\n');
+  }
+
+  void addNewRoom() {
+    print('\n=== Add New Room ===');
+
+    stdout.write('Enter room number: ');
+    final roomNumber = stdin.readLineSync()?.trim() ?? '';
+    if (roomNumber.isEmpty) {
+      print('Invalid room number.');
+      return;
+    }
+
+    print('\nRoom types:');
+    print('1. generalWard');
+    print('2. semiPrivate');
+    print('3. private');
+    print('4. surgical');
+    print('5. icu');
+    print('6. isolation');
+    print('7. maternity');
+    stdout.write('Select room type (1-7): ');
+    final typeChoice = stdin.readLineSync()?.trim() ?? '';
+
+    final roomTypes = [RoomType.generalWard, RoomType.semiPrivate, RoomType.private, RoomType.surgical, RoomType.icu, RoomType.isolation, RoomType.maternity];
+
+    RoomType? selectedType;
+    final typeIndex = int.tryParse(typeChoice);
+    if (typeIndex != null && typeIndex >= 1 && typeIndex <= 7) {
+      selectedType = roomTypes[typeIndex - 1];
+    } else {
+      print('Invalid room type.');
+      return;
+    }
+
+    stdout.write('How many beds in this room? ');
+    final bedCountStr = stdin.readLineSync()?.trim() ?? '';
+    final bedCount = int.tryParse(bedCountStr) ?? 0;
+    if (bedCount <= 0) {
+      print('Invalid bed count.');
+      return;
+    }
+
+    // Create room
+    final newRoom = Room(roomNumber: roomNumber, type: selectedType, beds: []);
+
+    // Create beds
+    final bedLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    for (int i = 0; i < bedCount && i < bedLetters.length; i++) {
+      final newBed = Bed(room: newRoom, bedNumber: bedLetters[i], status: BedStatus.available);
+      newRoom.beds.add(newBed);
+      beds.add(newBed);
+      bedById[newBed.id] = newBed;
+    }
+
+    rooms.add(newRoom);
+    roomById[newRoom.id] = newRoom;
+
+    saveAllData();
+    print('\nRoom created successfully!');
+    print('Room: $roomNumber with $bedCount bed(s)');
+  }
+
+  void allocateRoomToPatient() {
+    print('\n=== Allocate Room to Patient ===');
+
+    if (currentHospital == null) {
+      print('No hospital available. Cannot allocate rooms.');
+      return;
+    }
+
+    // List patients
+    if (patients.isEmpty) {
+      print('No patients available. Please create a patient first.');
+      stdout.write('\nDo you want to create a new patient? (y/n): ');
+      final create = stdin.readLineSync()?.trim()?.toLowerCase() ?? '';
+      if (create == 'y') {
+        createPatient();
+        if (patients.isEmpty) return;
+      } else {
+        return;
+      }
+    }
+
+    print('\nAvailable Patients:');
+    for (int i = 0; i < patients.length; i++) {
+      print('${i + 1}. ${patients[i].name} (ID: ${patients[i].id})');
+    }
+    stdout.write('\nSelect patient (number): ');
+    final patientChoice = stdin.readLineSync()?.trim() ?? '';
+    final patientIndex = int.tryParse(patientChoice);
+    if (patientIndex == null || patientIndex < 1 || patientIndex > patients.length) {
+      print('Invalid patient selection.');
+      return;
+    }
+    final selectedPatient = patients[patientIndex - 1];
+
+    // Show available rooms
+    final availableBeds = currentHospital!.findAvailableBeds();
+    if (availableBeds.isEmpty) {
+      print('\nNo available beds in the hospital.');
+      return;
+    }
+
+    print('\nAvailable Beds:');
+    for (int i = 0; i < availableBeds.length; i++) {
+      final bed = availableBeds[i];
+      print('${i + 1}. Room ${bed.room.roomNumber}, Bed ${bed.bedNumber} (${bed.room.type.name})');
+    }
+
+    stdout.write('\nSelect bed (number): ');
+    final bedChoice = stdin.readLineSync()?.trim() ?? '';
+    final bedIndex = int.tryParse(bedChoice);
+    if (bedIndex == null || bedIndex < 1 || bedIndex > availableBeds.length) {
+      print('Invalid bed selection.');
+      return;
+    }
+    final selectedBed = availableBeds[bedIndex - 1];
+
+    // Create allocation
+    try {
+      final allocation = BedAllocation(patient: selectedPatient, bed: selectedBed, status: AllocationStatus.active, startDate: DateTime.now());
+      selectedBed.occupy(allocation);
+      allocations.add(allocation);
+      allocationRepo.writeBedAllocations(allocations);
+      saveAllData();
+
+      print('\nRoom allocated successfully!');
+      print('Patient: ${selectedPatient.name}');
+      print('Room: ${selectedBed.room.roomNumber}, Bed: ${selectedBed.bedNumber}');
+    } catch (e) {
+      print('Error allocating room: $e');
+    }
+  }
+
+  void createPatient() {
+    print('\n=== Create New Patient ===');
+    stdout.write('Name: ');
+    final name = stdin.readLineSync()?.trim() ?? '';
+    if (name.isEmpty) {
+      print('Invalid name.');
+      return;
+    }
+
+    stdout.write('Age: ');
+    final ageStr = stdin.readLineSync()?.trim() ?? '';
+    final age = int.tryParse(ageStr) ?? 0;
+    if (age <= 0) {
+      print('Invalid age.');
+      return;
+    }
+
+    stdout.write('Gender: ');
+    final gender = stdin.readLineSync()?.trim() ?? '';
+    if (gender.isEmpty) {
+      print('Invalid gender.');
+      return;
+    }
+
+    stdout.write('Phone: ');
+    final phone = stdin.readLineSync()?.trim() ?? '';
+    stdout.write('Email: ');
+    final email = stdin.readLineSync()?.trim() ?? '';
+    stdout.write('Address: ');
+    final address = stdin.readLineSync()?.trim() ?? '';
+
+    final contactInfo = ContactInfo(phone: phone, email: email, address: address);
+
+    final newPatient = Patient(name: name, age: age, gender: gender, contactInfo: contactInfo);
+
+    patients.add(newPatient);
+    patientById[newPatient.id] = newPatient;
+    patientRepo.writePatients(patients);
+    print('\nPatient created successfully!');
+  }
+
+  void checkRoomAvailability() {
+    print('\n=== Check Room Availability ===');
+
+    if (currentHospital == null) {
+      print('No hospital available.');
+      return;
+    }
+
+    final availableBeds = currentHospital!.findAvailableBeds();
+    print('\nTotal Available Beds: ${availableBeds.length}');
+
+    if (availableBeds.isEmpty) {
+      print('No available beds in the hospital.');
+      return;
+    }
+
+    print('\nAvailable Beds by Room:');
+    final bedsByRoom = <Room, List<Bed>>{};
+    for (var bed in availableBeds) {
+      bedsByRoom.putIfAbsent(bed.room, () => []).add(bed);
+    }
+
+    for (var entry in bedsByRoom.entries) {
+      final room = entry.key;
+      final roomBeds = entry.value;
+      print('\nRoom ${room.roomNumber} (${room.type.name}):');
+      print('  Available beds: ${roomBeds.length}');
+      for (var bed in roomBeds) {
+        print('    - Bed ${bed.bedNumber}');
+      }
+    }
+
+    // Show summary
+    print('\n--- Summary ---');
+    for (var room in rooms) {
+      final available = room.getAvailableBeds().length;
+      final total = room.beds.length;
+      print('Room ${room.roomNumber}: $available/$total available');
+    }
+  }
+
+  void releaseRoom() {
+    print('\n=== Release Room ===');
+
+    final activeAllocations = allocations.where((a) => a.isActive()).toList();
+    if (activeAllocations.isEmpty) {
+      print('No active allocations found.');
+      return;
+    }
+
+    print('\nActive Allocations:');
+    for (int i = 0; i < activeAllocations.length; i++) {
+      final alloc = activeAllocations[i];
+      print('${i + 1}. Patient: ${alloc.patient.name} - Room: ${alloc.bed.room.roomNumber}, Bed: ${alloc.bed.bedNumber}');
+    }
+
+    stdout.write('\nSelect allocation to release (number): ');
+    final choice = stdin.readLineSync()?.trim() ?? '';
+    final index = int.tryParse(choice);
+    if (index == null || index < 1 || index > activeAllocations.length) {
+      print('Invalid selection.');
+      return;
+    }
+
+    final selectedAlloc = activeAllocations[index - 1];
+    try {
+      selectedAlloc.complete(DateTime.now());
+      allocationRepo.writeBedAllocations(allocations);
+      saveAllData();
+
+      print('\nRoom released successfully!');
+      print('Patient: ${selectedAlloc.patient.name}');
+      print('Room: ${selectedAlloc.bed.room.roomNumber}, Bed: ${selectedAlloc.bed.bedNumber}');
+    } catch (e) {
+      print('Error releasing room: $e');
+    }
+  }
+
+  void run() {
+    initialize();
+
+    bool running = true;
+    while (running) {
+      displayMenu();
+      final choice = stdin.readLineSync()?.trim() ?? '';
+
+      switch (choice) {
+        case '1':
+          viewAllRooms();
+          break;
+        case '2':
+          addNewRoom();
+          break;
+        case '3':
+          allocateRoomToPatient();
+          break;
+        case '4':
+          checkRoomAvailability();
+          break;
+        case '5':
+          releaseRoom();
+          break;
+        case '6':
+          saveAllData();
+          print('\nExiting... Goodbye!');
+          running = false;
+          break;
+        default:
+          print('\nInvalid choice. Please try again.');
+      }
+    }
+  }
+}
+
+void main() {
+  final system = RoomManagementSystem();
+  system.run();
+}

@@ -16,6 +16,27 @@ class Bed {
   Bed({String? id, required this.room, required this.bedNumber, this.status = BedStatus.available, this.currentAllocation}) 
     : id = id ?? uuid.v4();
 
+  factory Bed.fromJson(Map<String, dynamic> json, Map<String, Room> roomById) {
+    final roomId = json['roomId'] as String?;
+    if (roomId == null) {
+      throw FormatException('Bed missing roomId: $json');
+    }
+    final room = roomById[roomId];
+    if (room == null) {
+      throw FormatException('Bed references unknown roomId: $roomId');
+    }
+
+    final statusString = json['status'] as String? ?? 'available';
+    final parsedStatus = BedStatus.values.firstWhere((e) => e.name == statusString, orElse: () => BedStatus.available);
+
+    return Bed(
+      id: json['id'] as String?, 
+      room: room, 
+      bedNumber: json['bedNumber'] as String? ?? '', 
+      status: parsedStatus
+    );
+  }
+
   Map<String, dynamic> toJson() => {
     'id': id, 
     'roomId': room.id, 
@@ -24,17 +45,22 @@ class Bed {
     'currentAllocationId': currentAllocation?.id
   };
 
-  factory Bed.fromJson(Map<String, dynamic> json, Room room) {
-    return Bed(
-      id: json['id'], 
-      room: room, 
-      bedNumber: json['bedNumber'], 
-      status: BedStatus.values.firstWhere((e) => e.name == json['status'])
-    );
-  }
-
   @override
   String toString() => 'Bed(id: $id, bedNumber: $bedNumber, room: ${room.roomNumber}, status: ${status.name})';
+
+  /// Checks if the bed is available
+  bool isAvailable() {
+    return status == BedStatus.available;
+  }
+
+  /// Assigns a bed allocation to this bed
+  void assign(BedAllocation allocation) {
+    if (!isAvailable()) {
+      throw StateError('Cannot assign allocation to bed that is not available. Current status: ${status.name}');
+    }
+    status = BedStatus.occupied;
+    currentAllocation = allocation;
+  }
 
   void occupy(BedAllocation allocation) {
     status = BedStatus.occupied;

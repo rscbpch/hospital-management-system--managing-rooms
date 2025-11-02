@@ -13,6 +13,16 @@ class Patient {
   Patient({String? id, required this.name, required this.age, required this.gender, required this.contactInfo}) 
     : id = id ?? uuid.v4();
 
+  factory Patient.fromJson(Map<String, dynamic> json) {
+    return Patient(
+      id: json['id'] as String?,
+      name: json['name'] as String? ?? '',
+      age: (json['age'] is int) ? json['age'] as int : int.tryParse('${json['age']}') ?? 0,
+      gender: json['gender'] as String? ?? '',
+      contactInfo: ContactInfo.fromJson(json['contactInfo'] ?? {}),
+    );
+  }
+
   Map<String, dynamic> toJson() => {
     'id': id, 
     'name': name, 
@@ -20,16 +30,6 @@ class Patient {
     'gender': gender, 
     'contactInfo': contactInfo.toJson()
   };
-
-  factory Patient.fromJson(Map<String, dynamic> json) {
-    return Patient(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      age: json['age'] as int,
-      gender: json['gender'] as String,
-      contactInfo: ContactInfo.fromJson(json['contactInfo']),
-    );
-  }
 
   String getFullInfo() {
     return '''
