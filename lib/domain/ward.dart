@@ -23,12 +23,11 @@ extension WardTypeExtension on WardType {
 
 class Ward {
   final String id;
-  final String name;
-  final WardType type;
+  String name; // Changed from final to mutable
+  WardType type; // Changed from final to mutable
   final List<Room> rooms;
 
-  Ward({String? id, required this.name, required this.type, required this.rooms}) 
-    : id = id ?? uuid.v4();
+  Ward({String? id, required this.name, required this.type, required this.rooms}) : id = id ?? uuid.v4();
 
   factory Ward.fromJson(Map<String, dynamic> json, Map<String, Room> roomById) {
     final wardTypeString = json['type'] as String? ?? 'general';
@@ -55,19 +54,10 @@ class Ward {
       }
     }
 
-    return Ward(
-      id: json['id'] as String?, 
-      name: json['name'] as String? ?? '', 
-      type: parsedType, rooms: rooms
-    );
+    return Ward(id: json['id'] as String?, name: json['name'] as String? ?? '', type: parsedType, rooms: rooms);
   }
 
-  Map<String, dynamic> toJson() => {
-    'id': id, 
-    'name': name, 
-    'type': type.name, 
-    'rooms': rooms.map((r) => r.toJson()).toList()
-  };
+  Map<String, dynamic> toJson() => {'id': id, 'name': name, 'type': type.name, 'rooms': rooms.map((r) => r.toJson()).toList()};
 
   @override
   String toString() => 'Ward(id: $id, name: $name, type: ${type.name}, rooms: ${rooms.length})';
@@ -119,5 +109,29 @@ class Ward {
 
     rooms.removeAt(roomIndex);
     return true;
+  }
+
+  /// Updates the ward's name and/or type
+  void updateWard({String? name, WardType? type}) {
+    if (name != null) {
+      if (name.trim().isEmpty) {
+        throw ArgumentError('Ward name cannot be empty');
+      }
+      this.name = name.trim();
+    }
+
+    if (type != null) {
+      final newAllowedTypes = type.allowedRoomTypes;
+      for (var room in rooms) {
+        if (!newAllowedTypes.contains(room.type)) {
+          throw StateError(
+            'Cannot change ward type to ${type.name}. '
+            'Room ${room.roomNumber} (${room.type.name}) is not compatible with ${type.name} ward. '
+            'Allowed room types: ${newAllowedTypes.map((e) => e.name).join(", ")}',
+          );
+        }
+      }
+      this.type = type;
+    }
   }
 }
