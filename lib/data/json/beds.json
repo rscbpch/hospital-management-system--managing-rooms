@@ -35,7 +35,7 @@
       "roomId": "3b4c5d6e-7f8a-4789-a012-345678901234",
       "bedNumber": "A",
       "status": "occupied",
-      "currentAllocationId": null,
+      "currentAllocationId": "2b3c4d5e-6f7a-4789-b012-345678901234",
       "roomNumber": "102",
       "roomType": "semiPrivate",
       "isAvailable": false
@@ -45,7 +45,7 @@
       "roomId": "3b4c5d6e-7f8a-4789-a012-345678901234",
       "bedNumber": "B",
       "status": "occupied",
-      "currentAllocationId": null,
+      "currentAllocationId": "3c4d5e6f-7a8b-4789-c012-345678901234",
       "roomNumber": "102",
       "roomType": "semiPrivate",
       "isAvailable": false
@@ -54,18 +54,18 @@
       "id": "2e3f4a5b-6c7d-4789-d012-345678901234",
       "roomId": "3b4c5d6e-7f8a-4789-a012-345678901234",
       "bedNumber": "C",
-      "status": "available",
+      "status": "occupied",
       "currentAllocationId": null,
       "roomNumber": "102",
       "roomType": "semiPrivate",
-      "isAvailable": true
+      "isAvailable": false
     },
     {
       "id": "3f4a5b6c-7d8e-4789-e012-345678901234",
       "roomId": "4c5d6e7f-8a9b-4789-b012-345678901234",
       "bedNumber": "A",
       "status": "occupied",
-      "currentAllocationId": null,
+      "currentAllocationId": "1a2b3c4d-5e6f-4789-a012-345678901234",
       "roomNumber": "201",
       "roomType": "private",
       "isAvailable": false
@@ -114,11 +114,11 @@
       "id": "8e9f0a1b-2c3d-4789-d012-345678901234",
       "roomId": "6e7f8a9b-0c1d-4789-d012-345678901234",
       "bedNumber": "A",
-      "status": "occupied",
+      "status": "available",
       "currentAllocationId": null,
       "roomNumber": "401",
       "roomType": "maternity",
-      "isAvailable": false
+      "isAvailable": true
     },
     {
       "id": "9f0a1b2c-3d4e-4789-e012-345678901234",
@@ -128,6 +128,386 @@
       "currentAllocationId": null,
       "roomNumber": "401",
       "roomType": "maternity",
+      "isAvailable": true
+    },
+    {
+      "id": "3654d0d4-564f-405b-a2ca-9c8516097cb6",
+      "roomId": "1c0238fc-a005-4690-b3ed-6754ae61b914",
+      "bedNumber": "A",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "1",
+      "roomType": "icu",
+      "isAvailable": true
+    },
+    {
+      "id": "77ef4f2c-34d3-4570-b30a-76bb9fdd9dff",
+      "roomId": "1c0238fc-a005-4690-b3ed-6754ae61b914",
+      "bedNumber": "B",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "1",
+      "roomType": "icu",
+      "isAvailable": true
+    },
+    {
+      "id": "e6bd6cf3-fd11-4dce-b27a-6389c208aa06",
+      "roomId": "1c0238fc-a005-4690-b3ed-6754ae61b914",
+      "bedNumber": "C",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "1",
+      "roomType": "icu",
+      "isAvailable": true
+    },
+    {
+      "id": "74d6523d-991f-4137-beae-bf8c0f9eec29",
+      "roomId": "1c0238fc-a005-4690-b3ed-6754ae61b914",
+      "bedNumber": "D",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "1",
+      "roomType": "icu",
+      "isAvailable": true
+    },
+    {
+      "id": "556e8ee1-ad94-4e20-a6a5-98f0eeb70826",
+      "roomId": "c125bb43-ba8d-45f2-b65d-e22e18130c0c",
+      "bedNumber": "A",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "10",
+      "roomType": "maternity",
+      "isAvailable": true
+    },
+    {
+      "id": "f8acd122-b2db-47d2-a67d-be53ffcc0ad9",
+      "roomId": "c125bb43-ba8d-45f2-b65d-e22e18130c0c",
+      "bedNumber": "B",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "10",
+      "roomType": "maternity",
+      "isAvailable": true
+    },
+    {
+      "id": "b3853018-8183-499c-838a-439e2841e904",
+      "roomId": "c125bb43-ba8d-45f2-b65d-e22e18130c0c",
+      "bedNumber": "C",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "10",
+      "roomType": "maternity",
+      "isAvailable": true
+    },
+    {
+      "id": "2dee6230-302d-4a88-ad76-49a8732235aa",
+      "roomId": "c125bb43-ba8d-45f2-b65d-e22e18130c0c",
+      "bedNumber": "D",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "10",
+      "roomType": "maternity",
+      "isAvailable": true
+    },
+    {
+      "id": "26f69bb2-7374-4102-951a-270802fa8f49",
+      "roomId": "c125bb43-ba8d-45f2-b65d-e22e18130c0c",
+      "bedNumber": "E",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "10",
+      "roomType": "maternity",
+      "isAvailable": true
+    },
+    {
+      "id": "1ef47192-f4ff-43a5-b713-d25793c3d233",
+      "roomId": "c125bb43-ba8d-45f2-b65d-e22e18130c0c",
+      "bedNumber": "F",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "10",
+      "roomType": "maternity",
+      "isAvailable": true
+    },
+    {
+      "id": "089a06fb-5c24-4546-8699-e826b67f6a9c",
+      "roomId": "c125bb43-ba8d-45f2-b65d-e22e18130c0c",
+      "bedNumber": "G",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "10",
+      "roomType": "maternity",
+      "isAvailable": true
+    },
+    {
+      "id": "0265c535-d0e9-48b2-8b56-ed1d2c99e88f",
+      "roomId": "c125bb43-ba8d-45f2-b65d-e22e18130c0c",
+      "bedNumber": "H",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "10",
+      "roomType": "maternity",
+      "isAvailable": true
+    },
+    {
+      "id": "1f0b5be8-66b9-4d04-afd4-b9d6ebb5d57c",
+      "roomId": "145599fb-fd09-41e5-96e4-3e0d10efa8fb",
+      "bedNumber": "A",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "11",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "2a2562af-f29a-41ed-8f68-13380d33c7da",
+      "roomId": "145599fb-fd09-41e5-96e4-3e0d10efa8fb",
+      "bedNumber": "B",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "11",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "5b9b8afc-7f82-4806-8acb-b1e173351968",
+      "roomId": "145599fb-fd09-41e5-96e4-3e0d10efa8fb",
+      "bedNumber": "C",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "11",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "7e3d0268-ae2a-401a-a579-1069850ea505",
+      "roomId": "145599fb-fd09-41e5-96e4-3e0d10efa8fb",
+      "bedNumber": "D",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "11",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "5af6242c-55bd-4d31-bae0-adcd4fa81d6b",
+      "roomId": "145599fb-fd09-41e5-96e4-3e0d10efa8fb",
+      "bedNumber": "E",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "11",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "1bad67fe-7990-4997-aebb-1904d123f35a",
+      "roomId": "145599fb-fd09-41e5-96e4-3e0d10efa8fb",
+      "bedNumber": "F",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "11",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "e9ce1565-8f40-4587-a20d-dcac8a590aa8",
+      "roomId": "145599fb-fd09-41e5-96e4-3e0d10efa8fb",
+      "bedNumber": "G",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "11",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "573b84b3-c722-480d-8131-a33c863d2e57",
+      "roomId": "145599fb-fd09-41e5-96e4-3e0d10efa8fb",
+      "bedNumber": "H",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "11",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "2db24c02-7043-445a-a915-2e5c60af8a4a",
+      "roomId": "ce83ea55-0a84-4bf9-9976-4402c30d3c25",
+      "bedNumber": "A",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "1",
+      "roomType": "isolation",
+      "isAvailable": true
+    },
+    {
+      "id": "da937d9b-fc32-485d-b856-3da2199c601a",
+      "roomId": "ce83ea55-0a84-4bf9-9976-4402c30d3c25",
+      "bedNumber": "B",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "1",
+      "roomType": "isolation",
+      "isAvailable": true
+    },
+    {
+      "id": "8dc8c796-6b8a-428b-b240-028d4f1817d3",
+      "roomId": "1e3d8834-aa9e-463a-b48e-ee32271f7ea1",
+      "bedNumber": "A",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "2",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "85711736-02b4-4ab2-87a4-92d12796429c",
+      "roomId": "1e3d8834-aa9e-463a-b48e-ee32271f7ea1",
+      "bedNumber": "B",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "2",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "2459a34c-8c7f-4a15-9ed1-0b461cafdd32",
+      "roomId": "1e3d8834-aa9e-463a-b48e-ee32271f7ea1",
+      "bedNumber": "C",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "2",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "e0f864a9-132d-436d-946a-008a91c87875",
+      "roomId": "1e3d8834-aa9e-463a-b48e-ee32271f7ea1",
+      "bedNumber": "D",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "2",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "00e28a8e-0338-4132-a719-67563c91b16f",
+      "roomId": "1e3d8834-aa9e-463a-b48e-ee32271f7ea1",
+      "bedNumber": "E",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "2",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "2be7ce2c-6856-4d4c-bcaa-5cae8441170f",
+      "roomId": "0e9994fa-82f3-4fa0-8afd-ee36dfa20f87",
+      "bedNumber": "A",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "3",
+      "roomType": "private",
+      "isAvailable": true
+    },
+    {
+      "id": "b6400774-30ce-47fd-844d-2bc66f6a5fe0",
+      "roomId": "0e9994fa-82f3-4fa0-8afd-ee36dfa20f87",
+      "bedNumber": "B",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "3",
+      "roomType": "private",
+      "isAvailable": true
+    },
+    {
+      "id": "0510cbc1-46ab-428f-81ae-0b9152d3aa9b",
+      "roomId": "8b848c99-dd65-4d52-a011-53a156ecb1a8",
+      "bedNumber": "A",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "111",
+      "roomType": "icu",
+      "isAvailable": true
+    },
+    {
+      "id": "3ccaf364-4ec0-4595-9ebd-124dfa68d98a",
+      "roomId": "defc6eb8-4c3a-4e5c-a69f-7e8341bfadf0",
+      "bedNumber": "A",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "112",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "72eefd3b-d264-4f17-a758-d6bbc0176d5e",
+      "roomId": "defc6eb8-4c3a-4e5c-a69f-7e8341bfadf0",
+      "bedNumber": "B",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "112",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "4b3b5f44-b110-40c6-a64d-a2418cdc2541",
+      "roomId": "defc6eb8-4c3a-4e5c-a69f-7e8341bfadf0",
+      "bedNumber": "C",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "112",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "c80fcb38-3126-4021-bbf3-99607832dcd5",
+      "roomId": "defc6eb8-4c3a-4e5c-a69f-7e8341bfadf0",
+      "bedNumber": "D",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "112",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "1e7ee9d8-fccf-4e9f-81c9-def4c1c26795",
+      "roomId": "99cf9cd8-f4fb-47dd-9c0a-0a245790e367",
+      "bedNumber": "A",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "113",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "c8a1c811-7858-4496-92fb-16a44456a9e9",
+      "roomId": "99cf9cd8-f4fb-47dd-9c0a-0a245790e367",
+      "bedNumber": "B",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "113",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "dd3dfed3-42d5-4b78-8de4-14abc4832e90",
+      "roomId": "99cf9cd8-f4fb-47dd-9c0a-0a245790e367",
+      "bedNumber": "C",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "113",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "5d63f0d8-0848-4521-b950-c77d64cd28cc",
+      "roomId": "99cf9cd8-f4fb-47dd-9c0a-0a245790e367",
+      "bedNumber": "D",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "113",
+      "roomType": "generalWard",
       "isAvailable": true
     }
   ]

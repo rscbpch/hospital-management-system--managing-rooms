@@ -59,18 +59,6 @@
         "address": "654 Cedar Ln, City"
       },
       "fullInfo": "    Patient ID: e5f6a7b8-c9d0-4789-e012-345678901234\n    Name: David Brown\n    Age: 42\n    Gender: Male\n    Contact Information:     Phone: 567-890-1234\n    Email: david.brown@email.com\n    Address: 654 Cedar Ln, City"
-    },
-    {
-      "id": "f6a7b8c9-d0e1-4789-f012-345678901234",
-      "name": "Sarah Davis",
-      "age": 29,
-      "gender": "Female",
-      "contactInfo": {
-        "phone": "678-901-2345",
-        "email": "sarah.davis@email.com",
-        "address": "987 Birch St, City"
-      },
-      "fullInfo": "    Patient ID: f6a7b8c9-d0e1-4789-f012-345678901234\n    Name: Sarah Davis\n    Age: 29\n    Gender: Female\n    Contact Information:     Phone: 678-901-2345\n    Email: sarah.davis@email.com\n    Address: 987 Birch St, City"
     }
   ]
 }
