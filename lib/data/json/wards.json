@@ -9,92 +9,26 @@
           "id": "2a3b4c5d-6e7f-4789-f012-345678901234",
           "roomNumber": "101",
           "type": "generalWard",
-          "beds": [
-            {
-              "id": "7f8a9b0c-1d2e-4789-e012-345678901234",
-              "roomId": "2a3b4c5d-6e7f-4789-f012-345678901234",
-              "bedNumber": "A",
-              "status": "reserved",
-              "currentAllocationId": null
-            },
-            {
-              "id": "8a9b0c1d-2e3f-4789-f012-345678901234",
-              "roomId": "2a3b4c5d-6e7f-4789-f012-345678901234",
-              "bedNumber": "B",
-              "status": "reserved",
-              "currentAllocationId": null
-            },
-            {
-              "id": "9b0c1d2e-3f4a-4789-a012-345678901234",
-              "roomId": "2a3b4c5d-6e7f-4789-f012-345678901234",
-              "bedNumber": "C",
-              "status": "reserved",
-              "currentAllocationId": null
-            }
-          ]
+          "beds": []
         },
         {
           "id": "3b4c5d6e-7f8a-4789-a012-345678901234",
           "roomNumber": "102",
           "type": "semiPrivate",
-          "beds": [
-            {
-              "id": "0c1d2e3f-4a5b-4789-b012-345678901234",
-              "roomId": "3b4c5d6e-7f8a-4789-a012-345678901234",
-              "bedNumber": "A",
-              "status": "occupied",
-              "currentAllocationId": null
-            },
-            {
-              "id": "1d2e3f4a-5b6c-4789-c012-345678901234",
-              "roomId": "3b4c5d6e-7f8a-4789-a012-345678901234",
-              "bedNumber": "B",
-              "status": "occupied",
-              "currentAllocationId": null
-            },
-            {
-              "id": "2e3f4a5b-6c7d-4789-d012-345678901234",
-              "roomId": "3b4c5d6e-7f8a-4789-a012-345678901234",
-              "bedNumber": "C",
-              "status": "available",
-              "currentAllocationId": null
-            }
-          ]
+          "beds": []
         },
         {
           "id": "4c5d6e7f-8a9b-4789-b012-345678901234",
           "roomNumber": "201",
           "type": "private",
-          "beds": [
-            {
-              "id": "3f4a5b6c-7d8e-4789-e012-345678901234",
-              "roomId": "4c5d6e7f-8a9b-4789-b012-345678901234",
-              "bedNumber": "A",
-              "status": "occupied",
-              "currentAllocationId": null
-            },
-            {
-              "id": "4a5b6c7d-8e9f-4789-f012-345678901234",
-              "roomId": "4c5d6e7f-8a9b-4789-b012-345678901234",
-              "bedNumber": "B",
-              "status": "reserved",
-              "currentAllocationId": null
-            },
-            {
-              "id": "5b6c7d8e-9f0a-4789-a012-345678901234",
-              "roomId": "4c5d6e7f-8a9b-4789-b012-345678901234",
-              "bedNumber": "C",
-              "status": "available",
-              "currentAllocationId": null
-            }
-          ]
+          "beds": []
         }
       ],
       "roomCount": 3,
-      "totalBeds": 9,
-      "availableBedsCount": 2,
-      "isFull": false,
-      "availableRoomsCount": 2
+      "totalBeds": 0,
+      "availableBedsCount": 0,
+      "isFull": true,
+      "availableRoomsCount": 0
     },
     {
       "id": "a9b8c7d6-e5f4-4789-d012-345678901234",
@@ -105,29 +39,14 @@
           "id": "5d6e7f8a-9b0c-4789-c012-345678901234",
           "roomNumber": "301",
           "type": "icu",
-          "beds": [
-            {
-              "id": "6c7d8e9f-0a1b-4789-b012-345678901234",
-              "roomId": "5d6e7f8a-9b0c-4789-c012-345678901234",
-              "bedNumber": "A",
-              "status": "reserved",
-              "currentAllocationId": null
-            },
-            {
-              "id": "7d8e9f0a-1b2c-4789-c012-345678901234",
-              "roomId": "5d6e7f8a-9b0c-4789-c012-345678901234",
-              "bedNumber": "B",
-              "status": "available",
-              "currentAllocationId": null
-            }
-          ]
+          "beds": []
         }
       ],
       "roomCount": 1,
-      "totalBeds": 2,
-      "availableBedsCount": 1,
-      "isFull": false,
-      "availableRoomsCount": 1
+      "totalBeds": 0,
+      "availableBedsCount": 0,
+      "isFull": true,
+      "availableRoomsCount": 0
     },
     {
       "id": "1a2b3c4d-5e6f-4789-e012-345678901234",
@@ -138,29 +57,92 @@
           "id": "6e7f8a9b-0c1d-4789-d012-345678901234",
           "roomNumber": "401",
           "type": "maternity",
-          "beds": [
-            {
-              "id": "8e9f0a1b-2c3d-4789-d012-345678901234",
-              "roomId": "6e7f8a9b-0c1d-4789-d012-345678901234",
-              "bedNumber": "A",
-              "status": "occupied",
-              "currentAllocationId": null
-            },
-            {
-              "id": "9f0a1b2c-3d4e-4789-e012-345678901234",
-              "roomId": "6e7f8a9b-0c1d-4789-d012-345678901234",
-              "bedNumber": "B",
-              "status": "available",
-              "currentAllocationId": null
-            }
-          ]
+          "beds": []
         }
       ],
       "roomCount": 1,
-      "totalBeds": 2,
-      "availableBedsCount": 1,
-      "isFull": false,
-      "availableRoomsCount": 1
+      "totalBeds": 0,
+      "availableBedsCount": 0,
+      "isFull": true,
+      "availableRoomsCount": 0
+    },
+    {
+      "id": "e5ab2965-3efb-430b-b595-26d43fe5a9f9",
+      "name": "General Ward",
+      "type": "general",
+      "rooms": [
+        {
+          "id": "99cf9cd8-f4fb-47dd-9c0a-0a245790e367",
+          "roomNumber": "113",
+          "type": "generalWard",
+          "beds": []
+        }
+      ],
+      "roomCount": 1,
+      "totalBeds": 0,
+      "availableBedsCount": 0,
+      "isFull": true,
+      "availableRoomsCount": 0
+    },
+    {
+      "id": "1f1b256e-6cce-4491-b085-497b1db78540",
+      "name": "ICU Ward",
+      "type": "maternity",
+      "rooms": [
+        {
+          "id": "99cf9cd8-f4fb-47dd-9c0a-0a245790e367",
+          "roomNumber": "113",
+          "type": "generalWard",
+          "beds": []
+        }
+      ],
+      "roomCount": 1,
+      "totalBeds": 0,
+      "availableBedsCount": 0,
+      "isFull": true,
+      "availableRoomsCount": 0
+    },
+    {
+      "id": "c7ad227f-292f-437e-904a-4dea27dd11b2",
+      "name": "General Ward",
+      "type": "general",
+      "rooms": [
+        {
+          "id": "2a3b4c5d-6e7f-4789-f012-345678901234",
+          "roomNumber": "101",
+          "type": "generalWard",
+          "beds": []
+        }
+      ],
+      "roomCount": 1,
+      "totalBeds": 0,
+      "availableBedsCount": 0,
+      "isFull": true,
+      "availableRoomsCount": 0
+    },
+    {
+      "id": "f94718dc-6070-4100-98e1-0b5d609a8bcf",
+      "name": "General Ward",
+      "type": "general",
+      "rooms": [
+        {
+          "id": "145599fb-fd09-41e5-96e4-3e0d10efa8fb",
+          "roomNumber": "11",
+          "type": "generalWard",
+          "beds": []
+        },
+        {
+          "id": "2a3b4c5d-6e7f-4789-f012-345678901234",
+          "roomNumber": "101",
+          "type": "generalWard",
+          "beds": []
+        }
+      ],
+      "roomCount": 2,
+      "totalBeds": 0,
+      "availableBedsCount": 0,
+      "isFull": true,
+      "availableRoomsCount": 0
     }
   ]
 }
