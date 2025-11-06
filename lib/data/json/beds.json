@@ -35,7 +35,7 @@
       "roomId": "3b4c5d6e-7f8a-4789-a012-345678901234",
       "bedNumber": "A",
       "status": "occupied",
-      "currentAllocationId": "2b3c4d5e-6f7a-4789-b012-345678901234",
+      "currentAllocationId": "14b7293d-b493-5ca6-95g8-7g3e52b45g35",
       "roomNumber": "102",
       "roomType": "semiPrivate",
       "isAvailable": false
@@ -45,7 +45,7 @@
       "roomId": "3b4c5d6e-7f8a-4789-a012-345678901234",
       "bedNumber": "B",
       "status": "available",
-      "currentAllocationId": "3c4d5e6f-7a8b-4789-c012-345678901234",
+      "currentAllocationId": "25c83a4e-c5a4-6db7-a6h9-8h4f63c56h46",
       "roomNumber": "102",
       "roomType": "semiPrivate",
       "isAvailable": true
@@ -65,7 +65,7 @@
       "roomId": "4c5d6e7f-8a9b-4789-b012-345678901234",
       "bedNumber": "A",
       "status": "occupied",
-      "currentAllocationId": "1a2b3c4d-5e6f-4789-a012-345678901234",
+      "currentAllocationId": "36d94b5f-d6b5-7ec8-b7i0-9i5g74d67i57",
       "roomNumber": "201",
       "roomType": "private",
       "isAvailable": false
@@ -105,7 +105,7 @@
       "roomId": "5d6e7f8a-9b0c-4789-c012-345678901234",
       "bedNumber": "B",
       "status": "available",
-      "currentAllocationId": null,
+      "currentAllocationId": "47ea5c6g-e7c6-8fd9-c8j1-0j6h85e78j68",
       "roomNumber": "301",
       "roomType": "icu",
       "isAvailable": true
@@ -125,7 +125,7 @@
       "roomId": "6e7f8a9b-0c1d-4789-d012-345678901234",
       "bedNumber": "B",
       "status": "available",
-      "currentAllocationId": null,
+      "currentAllocationId": "03a6182c-a382-4b95-84f7-6f2d41a34f24",
       "roomNumber": "401",
       "roomType": "maternity",
       "isAvailable": true
@@ -565,10 +565,80 @@
       "roomId": "36f0f4b0-1bbe-4d8b-851d-cce862146557",
       "bedNumber": "C",
       "status": "occupied",
-      "currentAllocationId": "3291d78e-13e0-4a5c-9089-1213b2e9762f",
+      "currentAllocationId": null,
       "roomNumber": "115",
       "roomType": "generalWard",
       "isAvailable": false
+    },
+    {
+      "id": "8757da1b-7a26-4b43-bc98-f77a50d59a28",
+      "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+      "bedNumber": "A",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "116",
+      "roomType": "surgical",
+      "isAvailable": true
+    },
+    {
+      "id": "1c37a0c7-6bda-4aa8-a334-b028b9c650ea",
+      "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+      "bedNumber": "B",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "116",
+      "roomType": "surgical",
+      "isAvailable": true
+    },
+    {
+      "id": "d1b370f5-fc17-4b5a-a569-c1142632d63c",
+      "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+      "bedNumber": "C",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "116",
+      "roomType": "surgical",
+      "isAvailable": true
+    },
+    {
+      "id": "262cf47b-09fe-404b-aaaf-e736bc5d4795",
+      "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+      "bedNumber": "D",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "116",
+      "roomType": "surgical",
+      "isAvailable": true
+    },
+    {
+      "id": "3601bbb1-acbd-455c-a7d6-2b031e91210d",
+      "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+      "bedNumber": "E",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "116",
+      "roomType": "surgical",
+      "isAvailable": true
+    },
+    {
+      "id": "8fb7dd8e-f6f5-48fb-bdbd-2e24e111d4b4",
+      "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+      "bedNumber": "F",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "116",
+      "roomType": "surgical",
+      "isAvailable": true
+    },
+    {
+      "id": "0ba47362-eb4c-43eb-8a09-fd73e1ebc1e8",
+      "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+      "bedNumber": "G",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "116",
+      "roomType": "surgical",
+      "isAvailable": true
     }
   ]
 }

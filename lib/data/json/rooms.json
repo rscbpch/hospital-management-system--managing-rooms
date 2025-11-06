@@ -566,13 +566,73 @@
           "id": "fb56761e-68b4-411a-b787-15bf87925b9b",
           "roomId": "36f0f4b0-1bbe-4d8b-851d-cce862146557",
           "bedNumber": "C",
+          "status": "occupied",
+          "currentAllocationId": null
+        }
+      ],
+      "hasAvailableBeds": false,
+      "bedCount": 3,
+      "availableBedCount": 0,
+      "isFull": true
+    },
+    {
+      "id": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+      "roomNumber": "116",
+      "type": "surgical",
+      "beds": [
+        {
+          "id": "8757da1b-7a26-4b43-bc98-f77a50d59a28",
+          "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+          "bedNumber": "A",
+          "status": "available",
+          "currentAllocationId": null
+        },
+        {
+          "id": "1c37a0c7-6bda-4aa8-a334-b028b9c650ea",
+          "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+          "bedNumber": "B",
+          "status": "available",
+          "currentAllocationId": null
+        },
+        {
+          "id": "d1b370f5-fc17-4b5a-a569-c1142632d63c",
+          "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+          "bedNumber": "C",
+          "status": "available",
+          "currentAllocationId": null
+        },
+        {
+          "id": "262cf47b-09fe-404b-aaaf-e736bc5d4795",
+          "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+          "bedNumber": "D",
+          "status": "available",
+          "currentAllocationId": null
+        },
+        {
+          "id": "3601bbb1-acbd-455c-a7d6-2b031e91210d",
+          "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+          "bedNumber": "E",
+          "status": "available",
+          "currentAllocationId": null
+        },
+        {
+          "id": "8fb7dd8e-f6f5-48fb-bdbd-2e24e111d4b4",
+          "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+          "bedNumber": "F",
+          "status": "available",
+          "currentAllocationId": null
+        },
+        {
+          "id": "0ba47362-eb4c-43eb-8a09-fd73e1ebc1e8",
+          "roomId": "7d178cc3-3df7-4b5b-bcef-434bf718ff64",
+          "bedNumber": "G",
           "status": "available",
           "currentAllocationId": null
         }
       ],
       "hasAvailableBeds": true,
-      "bedCount": 3,
-      "availableBedCount": 1,
+      "bedCount": 7,
+      "availableBedCount": 7,
       "isFull": false
     }
   ]

@@ -35,17 +35,14 @@ class Room {
   @override
   String toString() => 'Room $roomNumber (${type.name}) - ${beds.length} beds';
 
-  // Checks if the room is full (no available beds)
   bool isFull() {
     return !beds.any((bed) => bed.status == BedStatus.available);
   }
 
-  // Gets list of available beds in the room
   List<Bed> getAvailableBeds() {
     return beds.where((bed) => bed.status == BedStatus.available).toList();
   }
 
-  // Adds a bed to the room
   void addBed(Bed bed) {
     if (bed.room.id != id) {
       throw ArgumentError('Bed belongs to a different room. Bed room: ${bed.room.id}, This room: $id');
@@ -56,7 +53,6 @@ class Room {
     beds.add(bed);
   }
 
-  // Removes a bed from the room by ID
   bool removeBed(String bedId) {
     final bedIndex = beds.indexWhere((bed) => bed.id == bedId);
     if (bedIndex == -1) {
@@ -72,6 +68,5 @@ class Room {
     return true; 
   }
 
-  // Checks for available beds
   bool hasAvailableBeds() => beds.any((bed) => bed.status == BedStatus.available);
 }

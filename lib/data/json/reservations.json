@@ -16,7 +16,7 @@
       "patientId": "b2c3d4e5-f6a7-4789-b012-345678901234",
       "bedId": "5b6c7d8e-9f0a-4789-a012-345678901234",
       "status": "pending",
-      "reservedDate": "2025-11-07T10:30:00.000000",
+      "reservedDate": "2025-11-07T10:30:00.000",
       "isActive": true,
       "patientName": "Jane Smith",
       "bedNumber": "C",
@@ -26,8 +26,8 @@
       "id": "445dc35d-7ag8-43f3-be8h-1gg5eg55ddc8",
       "patientId": "c3d4e5f6-a7b8-4789-c012-345678901234",
       "bedId": "7d8e9f0a-1b2c-4789-c012-345678901234",
-      "status": "pending",
-      "reservedDate": "2025-11-08T14:15:30.500000",
+      "status": "confirmed",
+      "reservedDate": "2025-11-08T14:15:30.500",
       "isActive": true,
       "patientName": "Bob Johnson",
       "bedNumber": "B",
@@ -38,22 +38,11 @@
       "patientId": "d4e5f6a7-b8c9-4789-d012-345678901234",
       "bedId": "9f0a1b2c-3d4e-4789-e012-345678901234",
       "status": "cancelled",
-      "reservedDate": "2025-11-05T08:20:15.250000",
+      "reservedDate": "2025-11-05T08:20:15.250",
       "isActive": false,
       "patientName": "Mary Williams",
       "bedNumber": "B",
       "roomNumber": "401"
-    },
-    {
-      "id": "667fe57f-9ci0-45h5-dg0j-3ii7gi77ffe0",
-      "patientId": "e5f6a7b8-c9d0-4789-e012-345678901234",
-      "bedId": "7d8e9f0a-1b2c-4789-c012-345678901234",
-      "status": "confirmed",
-      "reservedDate": "2025-11-09T16:45:00.750000",
-      "isActive": true,
-      "patientName": "David Brown",
-      "bedNumber": "B",
-      "roomNumber": "301"
     }
   ]
 }

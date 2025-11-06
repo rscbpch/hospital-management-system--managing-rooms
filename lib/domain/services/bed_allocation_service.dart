@@ -11,7 +11,6 @@ class BedAllocationService {
   BedAllocationService({required this.repository, List<BedAllocation>? allocations}) 
     : allocations = allocations ?? [];
 
-  /// Admits a patient to a ward by finding an available bed
   BedAllocation admitPatient(Patient patient, Ward ward) {
     Bed? availableBed;
 
@@ -39,7 +38,6 @@ class BedAllocationService {
     return allocation;
   }
 
-  /// Transfers a patient to a new ward
   BedAllocation transferPatient(Patient patient, Ward newWard) {
     final currentAllocation = allocations.firstWhere(
       (a) => a.patient.id == patient.id && a.isActive(),
@@ -70,7 +68,6 @@ class BedAllocationService {
     return currentAllocation;
   }
 
-  /// Discharges a patient (completes the allocation)
   void dischargePatient(Patient patient) {
     final allocation = allocations.firstWhere(
       (a) => a.patient.id == patient.id && a.isActive(),

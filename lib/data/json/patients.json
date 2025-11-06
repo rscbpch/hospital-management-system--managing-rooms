@@ -45,17 +45,6 @@
       }
     },
     {
-      "id": "e5f6a7b8-c9d0-4789-e012-345678901234",
-      "name": "David Brown",
-      "age": 42,
-      "gender": "Male",
-      "contactInfo": {
-        "phone": "567-890-1234",
-        "email": "david.brown@email.com",
-        "address": "654 Cedar Ln, City"
-      }
-    },
-    {
       "id": "f6b35edf-b66b-4bfe-b0d7-245161ff1813",
       "name": "Devid Tennyson",
       "age": 23,

@@ -48,12 +48,10 @@ class Bed {
   @override
   String toString() => 'Bed(id: $id, bedNumber: $bedNumber, room: ${room.roomNumber}, status: ${status.name})';
 
-  /// Checks if the bed is available
   bool isAvailable() {
     return status == BedStatus.available;
   }
 
-  /// Assigns a bed allocation to this bed
   void assign(BedAllocation allocation) {
     if (!isAvailable()) {
       throw StateError('Cannot assign allocation to bed that is not available. Current status: ${status.name}');

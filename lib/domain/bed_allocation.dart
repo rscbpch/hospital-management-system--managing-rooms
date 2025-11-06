@@ -79,7 +79,6 @@ class BedAllocation {
   @override
   String toString() => 'BedAllocation(id: $id, patient: ${patient.name}, bed: ${bed.bedNumber}, status: ${status.name}, startDate: $startDate, endDate: $endDate)';
 
-  /// Gets detailed allocation information
   String getAllocationDetails() {
     return '''
       Bed Allocation Details:
@@ -92,7 +91,6 @@ class BedAllocation {
       Duration: ${getDuration().inDays} days''';
   }
 
-  /// Completes the allocation with an end time
   void complete(DateTime endTime) {
     if (status == AllocationStatus.completed) {
       throw StateError('Allocation is already completed');
@@ -105,7 +103,6 @@ class BedAllocation {
     bed.release();
   }
 
-  /// Transfers the patient to a new bed
   void transferTo(Bed newBed) {
     if (status != AllocationStatus.active) {
       throw StateError('Can only transfer active allocations');
@@ -118,13 +115,11 @@ class BedAllocation {
     newBed.occupy(this);
   }
 
-  /// Gets the duration of the allocation
   Duration getDuration() {
     final end = endDate ?? DateTime.now();
     return end.difference(startDate);
   }
 
-  /// Checks if the allocation is currently active
   bool isActive() {
     return status == AllocationStatus.active;
   }

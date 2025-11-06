@@ -27,12 +27,8 @@ class Ward {
   WardType type; // Changed from final to mutable
   final List<Room> rooms;
 
-  Ward({
-    String? id,
-    required this.name,
-    required this.type,
-    required this.rooms,
-  }) : id = id ?? uuid.v4();
+  Ward({String? id, required this.name, required this.type, required this.rooms}) 
+    : id = id ?? uuid.v4();
 
   factory Ward.fromJson(Map<String, dynamic> json, Map<String, Room> roomById) {
     final wardTypeString = json['type'] as String? ?? 'general';
@@ -70,24 +66,20 @@ class Ward {
     );
   }
 
-  Map<String, dynamic> toJson() => {'id': id, 'name': name, 'type': type.name, 'rooms': rooms.map((r) => r.toJson()).toList()};
-  // Map<String, dynamic> toJson() => {
-  //   'id': id,
-  //   'name': name,
-  //   'type': type.name,
-  //   'rooms': rooms.map((r) => r.id).toList(),
-  // };
+  Map<String, dynamic> toJson() => {
+    'id': id, 
+    'name': name, 
+    'type': type.name, 
+    'rooms': rooms.map((r) => r.toJson()).toList()
+  };
 
   @override
-  String toString() =>
-      'Ward(id: $id, name: $name, type: ${type.name}, rooms: ${rooms.length})';
+  String toString() => 'Ward(id: $id, name: $name, type: ${type.name}, rooms: ${rooms.length})';
 
-  // Checks if the ward is full
   bool isFull() {
     return !rooms.any((room) => room.hasAvailableBeds());
   }
 
-  // Gets all available beds in the ward
   List<Bed> getAvailableBeds() {
     final List<Bed> availableBeds = [];
     for (var room in rooms) {
@@ -96,12 +88,10 @@ class Ward {
     return availableBeds;
   }
 
-  // Gets all rooms that have available beds
   List<Room> getAvailableRooms() {
     return rooms.where((room) => room.hasAvailableBeds()).toList();
   }
 
-  // Adds a room to the ward
   void addRoom(Room room) {
     if (!type.allowedRoomTypes.contains(room.type)) {
       throw ArgumentError(
@@ -118,7 +108,6 @@ class Ward {
     rooms.add(room);
   }
 
-  // Removes a room from the ward by ID
   bool removeRoom(String roomId) {
     final roomIndex = rooms.indexWhere((room) => room.id == roomId);
     if (roomIndex == -1) {
@@ -139,7 +128,6 @@ class Ward {
     return true;
   }
 
-  /// Updates the ward's name and/or type
   void updateWard({String? name, WardType? type}) {
     if (name != null) {
       if (name.trim().isEmpty) {

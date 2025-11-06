@@ -12,7 +12,6 @@ class ReservationService {
   ReservationService({required this.rooms, required this.repository, List<Reservation>? reservations}) 
     : reservations = reservations ?? [];
 
-  /// Creates a new reservation for a patient and room type
   Reservation createReservation(Patient patient, RoomType type) {
     final roomsOfType = rooms.where((room) => room.type == type).toList();
 
@@ -45,7 +44,6 @@ class ReservationService {
     return reservation;
   }
 
-  /// Cancels a reservation by ID
   void cancelReservation(String reservationId) {
     final reservation = reservations.firstWhere((r) => r.id == reservationId, orElse: () => throw Exception('Reservation not found: $reservationId'));
 
@@ -53,7 +51,6 @@ class ReservationService {
     repository.writeReservations(reservations);
   }
 
-  /// Confirms a reservation
   void confirmReservation(String reservationId) {
     final reservation = reservations.firstWhere((r) => r.id == reservationId, orElse: () => throw Exception('Reservation not found: $reservationId'));
 

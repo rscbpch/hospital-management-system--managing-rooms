@@ -23,7 +23,6 @@ class BedManager {
   void initialize() {
     ensureFileExist(bedFilePath);
 
-    //load rooms
     final rooms = roomRepo.readRooms(bedById);
     beds = bedRepo.readBeds({for (var room in rooms) room.id: room});
     bedById = {for (var bed in beds) bed.id: bed};

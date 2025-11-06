@@ -3,26 +3,31 @@ import 'dart:io';
 import 'package:hospital_management_system__managing_rooms/data/bed_repository.dart';
 import 'package:hospital_management_system__managing_rooms/data/room_repository.dart';
 import 'package:hospital_management_system__managing_rooms/data/ward_repository.dart';
+import 'package:hospital_management_system__managing_rooms/data/hospital_repository.dart';
 import 'package:hospital_management_system__managing_rooms/domain/bed.dart';
 import 'package:hospital_management_system__managing_rooms/domain/room.dart';
 import 'package:hospital_management_system__managing_rooms/domain/ward.dart';
+import 'package:hospital_management_system__managing_rooms/domain/hospital.dart';
 
 class WardManager {
   final String wardFilePath;
   final WardRepository wardRepo;
   final RoomRepository roomRepo;
   final BedRepository bedRepo;
+  final HospitalRepository? hospitalRepo;
 
   List<Ward> wards = [];
   Map<String, Room> roomById = {};
   Map<String, Ward> wardById = {};
   Map<String, Bed> bedById = {};
+  List<Hospital> hospitals = [];
 
   WardManager({
     required this.wardFilePath,
     required this.wardRepo,
     required this.roomRepo,
     required this.bedRepo,
+    this.hospitalRepo,
   }) {
     initialize();
   }
@@ -37,22 +42,51 @@ class WardManager {
   void initialize() {
     ensureFileExist(wardFilePath);
 
-    //load room
     final rooms = roomRepo.readRooms({});
     roomById = {for (var room in rooms) room.id: room};
 
-    //load bed
     final beds = bedRepo.readBeds(roomById);
     bedById = {for (var bed in beds) bed.id: bed};
     for (var bed in beds) {
       bed.room.beds.add(bed);
     }
 
-    // load ward
     wards = wardRepo.readWards(roomById);
     wardById = {for (var ward in wards) ward.id: ward};
 
+    if (hospitalRepo != null) {
+      try {
+        hospitals = hospitalRepo!.readHospitals(wardById);
+        if (hospitals.isNotEmpty) {
+          final hospital = hospitals.first;
+          for (var ward in wards) {
+            if (!hospital.wards.any((w) => w.id == ward.id)) {
+              hospital.addWard(ward);
+            }
+          }
+          hospitalRepo!.writeHospitals(hospitals);
+        }
+      } catch (e) {
+        print('Warning: Could not load hospitals: $e');
+      }
+    }
+
     print('WardManager initialized: ${wards.length} wards loaded.');
+  }
+
+  void _syncWardsToHospital() {
+    if (hospitalRepo == null || hospitals.isEmpty) return;
+    
+    try {
+      final hospital = hospitals.first;
+      hospital.wards.clear();
+      for (var ward in wards) {
+        hospital.addWard(ward);
+      }
+      hospitalRepo!.writeHospitals(hospitals);
+    } catch (e) {
+      print('Warning: Could not sync wards to hospital: $e');
+    }
   }
 
   void viewAllWards() {
@@ -60,18 +94,32 @@ class WardManager {
       print('No wards found');
       return;
     }
+
+    print('\n==== All Wards ====');
     for (var ward in wards) {
+      print('\nWard: ${ward.name} (${ward.type.name})');
+      print('Total Rooms: ${ward.rooms.length}');
       print(
-        "Ward: ${ward.name} ${ward.type.name} - ${ward.rooms.length} rooms",
+        'Total Beds: ${ward.getAvailableBeds().length + ward.rooms.fold<int>(0, (sum, room) => sum + room.beds.where((b) => b.status != BedStatus.available).length)} available beds',
       );
-      for (var room in ward.rooms) {
-        print('Room ${room.roomNumber} - ${room.beds.length} bed (s)');
+
+      if (ward.rooms.isEmpty) {
+        print('  No rooms in this ward');
+      } else {
+        print('Rooms:');
+        for (var room in ward.rooms) {
+          final availableBeds = room.beds.where((b) => b.isAvailable()).length;
+          final occupiedBeds = room.beds.where((b) => b.status == BedStatus.occupied).length;
+          final reservedBeds = room.beds.where((b) => b.status == BedStatus.reserved).length;
+          print('  - Room ${room.roomNumber} (${room.type.name}): ${room.beds.length} bed(s) - Available: $availableBeds, Occupied: $occupiedBeds, Reserved: $reservedBeds');
+        }
       }
+      print('---');
     }
   }
 
   void addWard() {
-    print("\n==== Add New Ward ====");
+    print('\n==== Add New Ward ====');
     stdout.write("Ward Name: ");
     final name = stdin.readLineSync()?.trim() ?? '';
     if (name.isEmpty) {
@@ -87,17 +135,15 @@ class WardManager {
     stdout.write("Enter Ward Type: ");
     stdout.write("Select (1-4): ");
     final choice = int.tryParse(stdin.readLineSync() ?? '') ?? 1;
-    final types = [
-      WardType.general,
-      WardType.surgery,
-      WardType.icu,
-      WardType.maternity,
-    ];
+    final types = [WardType.general, WardType.surgery, WardType.icu, WardType.maternity];
     final selectedType = types[choice - 1];
     final ward = Ward(name: name, type: selectedType, rooms: []);
     wards.add(ward);
     wardById[ward.id] = ward;
     wardRepo.writeWards(wards);
+    
+    _syncWardsToHospital();
+    
     print('Ward ${ward.name} added successfully!');
   }
 
@@ -167,9 +213,7 @@ class WardManager {
       return;
     }
 
-    final room = ward.rooms.where((r) => r.roomNumber == roomNumber).isNotEmpty
-        ? ward.rooms.firstWhere((r) => r.roomNumber == roomNumber)
-        : null;
+    final room = ward.rooms.where((r) => r.roomNumber == roomNumber).isNotEmpty ? ward.rooms.firstWhere((r) => r.roomNumber == roomNumber) : null;
     if (room == null) {
       print("Room not found in Ward");
       return;
@@ -177,6 +221,9 @@ class WardManager {
 
     ward.rooms.remove(room);
     wardRepo.writeWards(wards);
+    
+    _syncWardsToHospital();
+    
     print("Room ${room.roomNumber} removed from Ward ${ward.name}.");
   }
 
@@ -189,7 +236,7 @@ class WardManager {
       return;
     }
 
-    print("\n ==== Editing ${ward.name} (${ward.type.name}) ====");
+    print('\n==== Editing ${ward.name} (${ward.type.name}) ====');
     stdout.write("Enter a new name (or press Enter to keep '${ward.name}'): ");
     final newName = stdin.readLineSync()?.trim();
     if (newName != null && newName.isNotEmpty) {
@@ -200,27 +247,18 @@ class WardManager {
     print("2.Surgery");
     print("3.ICU");
     print("4.Maternity");
-    stdout.write(
-      "\nEnter Ward Type (or press Enter to keep '${ward.type.name}')\n",
-    );
+    stdout.write("\nEnter Ward Type (or press Enter to keep '${ward.type.name}')\n");
     stdout.write("Select (1-4): ");
     final typeInput = stdin.readLineSync()?.trim();
     if (typeInput != null && typeInput.isNotEmpty) {
       final typeIndex = int.tryParse(typeInput);
       if (typeIndex != null && typeIndex >= 1 && typeIndex <= 4) {
-        final types = [
-          WardType.general,
-          WardType.surgery,
-          WardType.icu,
-          WardType.maternity,
-        ];
+        final types = [WardType.general, WardType.surgery, WardType.icu, WardType.maternity];
         final newType = types[typeIndex - 1];
         ward.type = newType;
         for (var room in ward.rooms) {
           if (!newType.allowedRoomTypes.contains(room.type)) {
-            print(
-              "Changing room ${room.roomNumber} type from ${room.type.name} to ${newType.allowedRoomTypes.first.name}",
-            );
+            print("Changing room ${room.roomNumber} type from ${room.type.name} to ${newType.allowedRoomTypes.first.name}");
             room.type = newType.allowedRoomTypes.first;
           }
         }
@@ -228,6 +266,9 @@ class WardManager {
       }
     }
     wardRepo.writeWards(wards);
+    
+    _syncWardsToHospital();
+    
     print("Ward ${ward.name} updated successfully!");
   }
 }

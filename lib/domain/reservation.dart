@@ -67,7 +67,6 @@ class Reservation {
   @override
   String toString() => 'Reservation(id: $id, patient: ${patient.name}, bed: ${bed.bedNumber}, status: ${status.name}, reservedDate: $reservedDate)';
 
-  /// Confirms a pending reservation and reserves the bed
   void confirmReservation(Bed bed) {
     if (this.bed.id != bed.id) {
       throw ArgumentError('The provided bed does not match the reservation bed');
@@ -79,7 +78,6 @@ class Reservation {
     bed.reserve();
   }
 
-  /// Cancels a reservation and releases the bed
   void cancelReservation() {
     if (status == ReservationStatus.cancelled) {
       throw StateError('Reservation is already cancelled');
@@ -90,12 +88,10 @@ class Reservation {
     }
   }
 
-  /// Checks if the reservation is currently active and returns true if status is pending or confirmed
   bool isActive() {
     return status == ReservationStatus.pending || status == ReservationStatus.confirmed;
   }
 
-  /// Expires an active reservation by cancelling it
   void expire() {
     if (!isActive()) {
       return;

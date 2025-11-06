@@ -1,13 +1,11 @@
 import 'dart:io';
-import 'package:hospital_management_system__managing_rooms/managers/patient_manager.dart';
-import 'package:hospital_management_system__managing_rooms/managers/room_manager.dart';
-import 'package:hospital_management_system__managing_rooms/managers/ward_manager.dart';
+import 'package:hospital_management_system__managing_rooms/ui/managers/patient_manager.dart';
+import 'package:hospital_management_system__managing_rooms/ui/managers/room_manager.dart';
+import 'package:hospital_management_system__managing_rooms/ui/managers/ward_manager.dart';
+import 'package:hospital_management_system__managing_rooms/ui/managers/bed_allocation_manager.dart';
+import 'package:hospital_management_system__managing_rooms/ui/managers/reservation_manager.dart';
 
-void start(
-  RoomManager roomManager,
-  PatientManager patientManager,
-  WardManager wardManager,
-) {
+void start(RoomManager roomManager, PatientManager patientManager, WardManager wardManager, BedAllocationManager bedAllocationManager, ReservationManager reservationManager) {
   bool running = true;
   while (running) {
     print("\n ==== Hospital (Room Management System) ====");
@@ -21,7 +19,7 @@ void start(
     print("2. Manage Rooms");
     print("3. Manage Patients");
     print("4. Manage Bed Allocations");
-    print("5. View Reservations");
+    print("5. Manage Reservations");
     print("6. Exit");
     stdout.write("Enter your choice: ");
 
@@ -37,10 +35,10 @@ void start(
         patientOperation(patientManager);
         break;
       case '4':
-        roomManager.checkRoomAvailability();
+        bedAllocationOperation(bedAllocationManager);
         break;
       case '5':
-        roomManager.releaseBed();
+        reservationOperation(reservationManager);
         break;
       case '6':
         running = false;
@@ -60,9 +58,7 @@ void viewAllRooms(RoomManager roomManager) {
   }
 
   for (var room in rooms) {
-    print(
-      'Room ${room.roomNumber} (${room.type.name}) - ${room.beds.length} beds',
-    );
+    print('Room ${room.roomNumber} (${room.type.name}) - ${room.beds.length} beds');
     for (var bed in room.beds) {
       print('- Bed ${bed.bedNumber}: ${bed.status.name}');
     }
@@ -195,6 +191,78 @@ void patientOperation(PatientManager patientManager) {
         return;
       default:
         print("Invalid Choice");
+    }
+  }
+}
+
+void bedAllocationOperation(BedAllocationManager bedAllocationManager) {
+  while (true) {
+    print("\n==== Manage Bed Allocations ====");
+    print("1. View All Allocations");
+    print("2. View Active Allocations");
+    print("3. Admit Patient to Ward");
+    print("4. Transfer Patient to New Ward");
+    print("5. Discharge Patient");
+    print("6. Exit");
+    stdout.write("Enter choice: ");
+    final choice = stdin.readLineSync()?.trim();
+    switch (choice) {
+      case '1':
+        bedAllocationManager.viewAllAllocations();
+        break;
+      case '2':
+        bedAllocationManager.viewActiveAllocations();
+        break;
+      case '3':
+        bedAllocationManager.admitPatient();
+        break;
+      case '4':
+        bedAllocationManager.transferPatient();
+        break;
+      case '5':
+        bedAllocationManager.dischargePatient();
+        break;
+      case '6':
+        print("Returning to main menu...");
+        return;
+      default:
+        print("Invalid choice");
+    }
+  }
+}
+
+void reservationOperation(ReservationManager reservationManager) {
+  while (true) {
+    print("\n==== Manage Reservations ====");
+    print("1. View All Reservations");
+    print("2. View Active Reservations");
+    print("3. Create Reservation");
+    print("4. Confirm Reservation");
+    print("5. Cancel Reservation");
+    print("6. Exit");
+    stdout.write("Enter choice: ");
+    final choice = stdin.readLineSync()?.trim();
+    switch (choice) {
+      case '1':
+        reservationManager.viewAllReservations();
+        break;
+      case '2':
+        reservationManager.viewActiveReservations();
+        break;
+      case '3':
+        reservationManager.createReservation();
+        break;
+      case '4':
+        reservationManager.confirmReservation();
+        break;
+      case '5':
+        reservationManager.cancelReservation();
+        break;
+      case '6':
+        print("Returning to main menu...");
+        return;
+      default:
+        print("Invalid choice");
     }
   }
 }

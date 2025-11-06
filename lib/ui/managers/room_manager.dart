@@ -9,7 +9,7 @@ import 'package:hospital_management_system__managing_rooms/data/bed_repository.d
 import 'package:hospital_management_system__managing_rooms/domain/bed.dart';
 import 'package:hospital_management_system__managing_rooms/data/patient_repository.dart';
 import 'package:hospital_management_system__managing_rooms/domain/ward.dart';
-import 'package:hospital_management_system__managing_rooms/managers/patient_manager.dart';
+import 'package:hospital_management_system__managing_rooms/ui/managers/patient_manager.dart';
 
 class RoomManager {
   final String roomFilePath;
@@ -38,15 +38,12 @@ class RoomManager {
   void initialize() {
     ensureFileExists(roomFilePath);
 
-    // load patietns
     final patients = patientRepo.readPatients();
     patientById = {for (var patient in patients) patient.id: patient};
 
-    //load rooms
     rooms = roomRepo.readRooms(bedById);
     roomById = {for (var room in rooms) room.id: room};
 
-    //load beds
     final beds = bedRepo.readBeds(roomById);
     bedById = {for (var bed in beds) bed.id: bed};
 
@@ -59,7 +56,6 @@ class RoomManager {
       }
     }
 
-    // load allocations
     allocations = allocationRepo.readBedAllocations(patientById, bedById);
 
     for (var allocation in allocations) {
@@ -97,7 +93,7 @@ class RoomManager {
   }
 
   void addNewRoom(String roomNumber, String type, int bedCount) {
-    print("\n === Add New Room ===");
+    print('\n==== Add New Room ====');
     stdout.write("Enter room number: ");
     final roomNumber = stdin.readLineSync()?.trim() ?? '';
 
@@ -176,7 +172,7 @@ class RoomManager {
   }
 
   void checkRoomAvailability() {
-    print("\n=== Check Room Availability ===");
+    print('\n==== Check Room Availability ====');
     for (var room in rooms) {
       final freeBeds = room.beds.where((b) => b.isAvailable()).toList();
       if (freeBeds.isNotEmpty) {
@@ -191,7 +187,7 @@ class RoomManager {
   }
 
   void allocateBedToPatient(PatientManager patientManager) {
-    print("\n === Allocate Bed To Patient");
+    print('\n==== Allocate Bed To Patient ====');
     for (var p in patientManager.getAllPatients()) {
       print("- Name: ${p.name} - ID: ${p.id}");
     }
@@ -270,7 +266,7 @@ class RoomManager {
   }
 
   void releaseBed() {
-    print("\n=== Release Bed From Patient");
+    print('\n==== Release Bed From Patient ====');
     final occupiedBed = bedById.values
         .where((b) => b.status == BedStatus.occupied)
         .toList();

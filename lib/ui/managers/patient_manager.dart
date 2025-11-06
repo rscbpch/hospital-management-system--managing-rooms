@@ -60,7 +60,7 @@ class PatientManager {
   }
 
   void createPatient() {
-    print("\n === Register Patient ===");
+    print('\n==== Register Patient ====');
     stdout.write("Enter Patient name: ");
     final name = stdin.readLineSync()?.trim() ?? '';
     if (name.isEmpty) {
@@ -90,22 +90,13 @@ class PatientManager {
     stdout.write('Address: ');
     final address = stdin.readLineSync()?.trim() ?? '';
 
-    final contactInfo = ContactInfo(
-      phone: phone,
-      email: email,
-      address: address,
-    );
+    final contactInfo = ContactInfo(phone: phone, email: email, address: address);
 
-    final newPatient = Patient(
-      name: name,
-      age: age,
-      gender: gender,
-      contactInfo: contactInfo,
-    );
+    final newPatient = Patient(name: name, age: age, gender: gender, contactInfo: contactInfo);
 
     patients.add(newPatient);
     patientById[newPatient.id] = newPatient;
     patientRepo.writePatients(patients);
-    print("\nPatient created successfully!");
+    print('\nPatient created successfully!');
   }
 }
