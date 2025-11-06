@@ -9,8 +9,7 @@
         "phone": "123-456-7890",
         "email": "john.doe@email.com",
         "address": "123 Main St, City"
-      },
-      "fullInfo": "    Patient ID: a1b2c3d4-e5f6-4789-a012-345678901234\n    Name: John Doe\n    Age: 45\n    Gender: Male\n    Contact Information:     Phone: 123-456-7890\n    Email: john.doe@email.com\n    Address: 123 Main St, City"
+      }
     },
     {
       "id": "b2c3d4e5-f6a7-4789-b012-345678901234",
@@ -21,8 +20,7 @@
         "phone": "234-567-8901",
         "email": "jane.smith@email.com",
         "address": "456 Oak Ave, City"
-      },
-      "fullInfo": "    Patient ID: b2c3d4e5-f6a7-4789-b012-345678901234\n    Name: Jane Smith\n    Age: 32\n    Gender: Female\n    Contact Information:     Phone: 234-567-8901\n    Email: jane.smith@email.com\n    Address: 456 Oak Ave, City"
+      }
     },
     {
       "id": "c3d4e5f6-a7b8-4789-c012-345678901234",
@@ -33,8 +31,7 @@
         "phone": "345-678-9012",
         "email": "bob.johnson@email.com",
         "address": "789 Pine Rd, City"
-      },
-      "fullInfo": "    Patient ID: c3d4e5f6-a7b8-4789-c012-345678901234\n    Name: Bob Johnson\n    Age: 58\n    Gender: Male\n    Contact Information:     Phone: 345-678-9012\n    Email: bob.johnson@email.com\n    Address: 789 Pine Rd, City"
+      }
     },
     {
       "id": "d4e5f6a7-b8c9-4789-d012-345678901234",
@@ -45,8 +42,7 @@
         "phone": "456-789-0123",
         "email": "mary.williams@email.com",
         "address": "321 Maple Dr, City"
-      },
-      "fullInfo": "    Patient ID: d4e5f6a7-b8c9-4789-d012-345678901234\n    Name: Mary Williams\n    Age: 35\n    Gender: Female\n    Contact Information:     Phone: 456-789-0123\n    Email: mary.williams@email.com\n    Address: 321 Maple Dr, City"
+      }
     },
     {
       "id": "e5f6a7b8-c9d0-4789-e012-345678901234",
@@ -57,8 +53,7 @@
         "phone": "567-890-1234",
         "email": "david.brown@email.com",
         "address": "654 Cedar Ln, City"
-      },
-      "fullInfo": "    Patient ID: e5f6a7b8-c9d0-4789-e012-345678901234\n    Name: David Brown\n    Age: 42\n    Gender: Male\n    Contact Information:     Phone: 567-890-1234\n    Email: david.brown@email.com\n    Address: 654 Cedar Ln, City"
+      }
     },
     {
       "id": "f6a7b8c9-d0e1-4789-f012-345678901234",
@@ -69,8 +64,7 @@
         "phone": "678-901-2345",
         "email": "sarah.davis@email.com",
         "address": "987 Birch St, City"
-      },
-      "fullInfo": "    Patient ID: f6a7b8c9-d0e1-4789-f012-345678901234\n    Name: Sarah Davis\n    Age: 29\n    Gender: Female\n    Contact Information:     Phone: 678-901-2345\n    Email: sarah.davis@email.com\n    Address: 987 Birch St, City"
+      }
     }
   ]
 }

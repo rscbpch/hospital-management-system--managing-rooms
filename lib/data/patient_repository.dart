@@ -41,7 +41,6 @@ class PatientRepository {
 
       final List<Map<String, dynamic>> patientsJson = patients.map((p) {
         final map = p.toJson();
-        map['fullInfo'] = p.getFullInfo();
         return map;
       }).toList();
 
