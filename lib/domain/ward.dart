@@ -27,11 +27,19 @@ class Ward {
   WardType type; // Changed from final to mutable
   final List<Room> rooms;
 
-  Ward({String? id, required this.name, required this.type, required this.rooms}) : id = id ?? uuid.v4();
+  Ward({
+    String? id,
+    required this.name,
+    required this.type,
+    required this.rooms,
+  }) : id = id ?? uuid.v4();
 
   factory Ward.fromJson(Map<String, dynamic> json, Map<String, Room> roomById) {
     final wardTypeString = json['type'] as String? ?? 'general';
-    final parsedType = WardType.values.firstWhere((e) => e.name == wardTypeString, orElse: () => WardType.general);
+    final parsedType = WardType.values.firstWhere(
+      (e) => e.name == wardTypeString,
+      orElse: () => WardType.general,
+    );
 
     final roomsJson = json['rooms'] as List<dynamic>? ?? [];
     final List<Room> rooms = [];
@@ -54,13 +62,25 @@ class Ward {
       }
     }
 
-    return Ward(id: json['id'] as String?, name: json['name'] as String? ?? '', type: parsedType, rooms: rooms);
+    return Ward(
+      id: json['id'] as String?,
+      name: json['name'] as String? ?? '',
+      type: parsedType,
+      rooms: rooms,
+    );
   }
 
   Map<String, dynamic> toJson() => {'id': id, 'name': name, 'type': type.name, 'rooms': rooms.map((r) => r.toJson()).toList()};
+  // Map<String, dynamic> toJson() => {
+  //   'id': id,
+  //   'name': name,
+  //   'type': type.name,
+  //   'rooms': rooms.map((r) => r.id).toList(),
+  // };
 
   @override
-  String toString() => 'Ward(id: $id, name: $name, type: ${type.name}, rooms: ${rooms.length})';
+  String toString() =>
+      'Ward(id: $id, name: $name, type: ${type.name}, rooms: ${rooms.length})';
 
   // Checks if the ward is full
   bool isFull() {
@@ -84,11 +104,15 @@ class Ward {
   // Adds a room to the ward
   void addRoom(Room room) {
     if (!type.allowedRoomTypes.contains(room.type)) {
-      throw ArgumentError('Room type ${room.type.name} is not allowed in ${type.name} ward. Allowed types: ${type.allowedRoomTypes.map((e) => e.name).join(", ")}');
+      throw ArgumentError(
+        'Room type ${room.type.name} is not allowed in ${type.name} ward. Allowed types: ${type.allowedRoomTypes.map((e) => e.name).join(", ")}',
+      );
     }
 
     if (rooms.any((r) => r.id == room.id)) {
-      throw ArgumentError('Room with id ${room.id} already exists in this ward');
+      throw ArgumentError(
+        'Room with id ${room.id} already exists in this ward',
+      );
     }
 
     rooms.add(room);
@@ -102,9 +126,13 @@ class Ward {
     }
 
     final room = rooms[roomIndex];
-    final occupiedBeds = room.beds.where((bed) => bed.status == BedStatus.occupied).toList();
+    final occupiedBeds = room.beds
+        .where((bed) => bed.status == BedStatus.occupied)
+        .toList();
     if (occupiedBeds.isNotEmpty) {
-      throw StateError('Cannot remove room that has ${occupiedBeds.length} occupied bed(s). Room must be empty.');
+      throw StateError(
+        'Cannot remove room that has ${occupiedBeds.length} occupied bed(s). Room must be empty.',
+      );
     }
 
     rooms.removeAt(roomIndex);
