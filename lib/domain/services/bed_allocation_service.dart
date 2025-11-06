@@ -2,23 +2,19 @@ import 'package:hospital_management_system__managing_rooms/domain/bed_allocation
 import 'package:hospital_management_system__managing_rooms/domain/patient.dart';
 import 'package:hospital_management_system__managing_rooms/domain/bed.dart';
 import 'package:hospital_management_system__managing_rooms/domain/ward.dart';
-import 'package:hospital_management_system__managing_rooms/domain/room.dart';
 import '../../data/bed_allocation_repository.dart';
 
 class BedAllocationService {
   final BedAllocationRepository repository;
-  final List<Ward> wards;
-  final List<Room> rooms;
-  final List<Bed> beds;
   List<BedAllocation> allocations;
 
-  BedAllocationService({required this.repository, required this.wards, required this.rooms, required this.beds, List<BedAllocation>? allocations})
+  BedAllocationService({required this.repository, List<BedAllocation>? allocations}) 
     : allocations = allocations ?? [];
 
   /// Admits a patient to a ward by finding an available bed
   BedAllocation admitPatient(Patient patient, Ward ward) {
     Bed? availableBed;
-    
+
     for (var room in ward.rooms) {
       for (var bed in room.beds) {
         if (bed.status == BedStatus.available) {

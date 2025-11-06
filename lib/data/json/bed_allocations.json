@@ -1,56 +1,69 @@
 {
   "bedAllocations": [
     {
-      "id": "1a2b3c4d-5e6f-4789-a012-345678901234",
-      "patientId": "d4e5f6a7-b8c9-4789-d012-345678901234",
-      "bedId": "3f4a5b6c-7d8e-4789-e012-345678901234",
-      "startDate": "2024-01-15T10:00:00.000Z",
+      "id": "03a6182c-a382-4b95-84f7-6f2d41a34f24",
+      "patientId": "a1b2c3d4-e5f6-4789-a012-345678901234",
+      "bedId": "9f0a1b2c-3d4e-4789-e012-345678901234",
+      "startDate": "2025-11-06T01:02:32.907916",
+      "endDate": "2025-11-06T01:02:32.908138",
+      "status": "completed",
+      "isActive": false,
+      "durationDays": 0,
+      "patientName": "John Doe",
+      "bedNumber": "B",
+      "roomNumber": "401"
+    },
+    {
+      "id": "14b7293d-b493-5ca6-95g8-7g3e52b45g35",
+      "patientId": "b2c3d4e5-f6a7-4789-b012-345678901234",
+      "bedId": "0c1d2e3f-4a5b-4789-b012-345678901234",
+      "startDate": "2025-11-07T10:15:20.123456",
       "endDate": null,
       "status": "active",
       "isActive": true,
-      "durationDays": 657,
+      "durationDays": 0,
+      "patientName": "Jane Smith",
+      "bedNumber": "A",
+      "roomNumber": "102"
+    },
+    {
+      "id": "25c83a4e-c5a4-6db7-a6h9-8h4f63c56h46",
+      "patientId": "c3d4e5f6-a7b8-4789-c012-345678901234",
+      "bedId": "1d2e3f4a-5b6c-4789-c012-345678901234",
+      "startDate": "2025-11-08T14:30:45.789012",
+      "endDate": null,
+      "status": "active",
+      "isActive": true,
+      "durationDays": 0,
+      "patientName": "Bob Johnson",
+      "bedNumber": "B",
+      "roomNumber": "102"
+    },
+    {
+      "id": "36d94b5f-d6b5-7ec8-b7i0-9i5g74d67i57",
+      "patientId": "d4e5f6a7-b8c9-4789-d012-345678901234",
+      "bedId": "3f4a5b6c-7d8e-4789-e012-345678901234",
+      "startDate": "2025-11-05T08:00:00.000000",
+      "endDate": "2025-11-10T16:00:00.000000",
+      "status": "completed",
+      "isActive": false,
+      "durationDays": 5,
       "patientName": "Mary Williams",
       "bedNumber": "A",
       "roomNumber": "201"
     },
     {
-      "id": "2b3c4d5e-6f7a-4789-b012-345678901234",
-      "patientId": "a1b2c3d4-e5f6-4789-a012-345678901234",
-      "bedId": "0c1d2e3f-4a5b-4789-b012-345678901234",
-      "startDate": "2024-01-16T08:00:00.000Z",
-      "endDate": null,
-      "status": "active",
-      "isActive": true,
-      "durationDays": 656,
-      "patientName": "John Doe",
-      "bedNumber": "A",
-      "roomNumber": "102"
-    },
-    {
-      "id": "3c4d5e6f-7a8b-4789-c012-345678901234",
+      "id": "47ea5c6g-e7c6-8fd9-c8j1-0j6h85e78j68",
       "patientId": "e5f6a7b8-c9d0-4789-e012-345678901234",
-      "bedId": "1d2e3f4a-5b6c-4789-c012-345678901234",
-      "startDate": "2024-01-17T14:00:00.000Z",
-      "endDate": null,
-      "status": "active",
-      "isActive": true,
-      "durationDays": 654,
+      "bedId": "7d8e9f0a-1b2c-4789-c012-345678901234",
+      "startDate": "2025-11-04T12:00:00.000000",
+      "endDate": "2025-11-04T12:30:00.000000",
+      "status": "cancelled",
+      "isActive": false,
+      "durationDays": 0,
       "patientName": "David Brown",
       "bedNumber": "B",
-      "roomNumber": "102"
-    },
-    {
-      "id": "4d5e6f7a-8b9c-4789-d012-345678901234",
-      "patientId": "f6a7b8c9-d0e1-4789-f012-345678901234",
-      "bedId": "8e9f0a1b-2c3d-4789-d012-345678901234",
-      "startDate": "2024-01-18T09:00:00.000Z",
-      "endDate": null,
-      "status": "active",
-      "isActive": true,
-      "durationDays": 654,
-      "patientName": "Sarah Davis",
-      "bedNumber": "A",
-      "roomNumber": "401"
+      "roomNumber": "301"
     }
   ]
 }

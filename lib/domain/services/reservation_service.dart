@@ -2,12 +2,15 @@ import 'package:hospital_management_system__managing_rooms/domain/reservation.da
 import 'package:hospital_management_system__managing_rooms/domain/patient.dart';
 import 'package:hospital_management_system__managing_rooms/domain/bed.dart';
 import 'package:hospital_management_system__managing_rooms/domain/room.dart';
+import '../../data/reservation_repository.dart';
 
 class ReservationService {
   final List<Room> rooms;
-  final List<Bed> beds;
+  final ReservationRepository repository;
+  List<Reservation> reservations;
 
-  ReservationService({required this.rooms, required this.beds});
+  ReservationService({required this.rooms, required this.repository, List<Reservation>? reservations}) 
+    : reservations = reservations ?? [];
 
   /// Creates a new reservation for a patient and room type
   Reservation createReservation(Patient patient, RoomType type) {
@@ -34,11 +37,27 @@ class ReservationService {
       throw Exception('No available beds found for room type: ${type.name}');
     }
 
-    return Reservation(
-      patient: patient, 
-      bed: availableBed, 
-      status: ReservationStatus.pending, 
-      reservedDate: DateTime.now()
-    );
+    final reservation = Reservation(patient: patient, bed: availableBed, status: ReservationStatus.pending, reservedDate: DateTime.now());
+
+    reservations.add(reservation);
+    repository.writeReservations(reservations);
+
+    return reservation;
+  }
+
+  /// Cancels a reservation by ID
+  void cancelReservation(String reservationId) {
+    final reservation = reservations.firstWhere((r) => r.id == reservationId, orElse: () => throw Exception('Reservation not found: $reservationId'));
+
+    reservation.cancelReservation();
+    repository.writeReservations(reservations);
+  }
+
+  /// Confirms a reservation
+  void confirmReservation(String reservationId) {
+    final reservation = reservations.firstWhere((r) => r.id == reservationId, orElse: () => throw Exception('Reservation not found: $reservationId'));
+
+    reservation.confirmReservation(reservation.bed);
+    repository.writeReservations(reservations);
   }
 }
