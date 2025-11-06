@@ -93,7 +93,9 @@ void wardOperation(WardManager wardManager, RoomManager roomManager) {
     print("1. View All Wards");
     print("2. Add New Ward");
     print("3. Add Room to Ward");
-    print("4. Exit");
+    print("4. Remove Room from Ward");
+    print("5. Update Ward");
+    print("6. Exit");
     stdout.write("Enter choice: ");
     final choice = stdin.readLineSync()?.trim();
     switch (choice) {
@@ -107,6 +109,12 @@ void wardOperation(WardManager wardManager, RoomManager roomManager) {
         wardManager.assignRoomToWard();
         break;
       case '4':
+        wardManager.removeRoomFromWard();
+        break;
+      case '5':
+        wardManager.updateWard();
+        break;
+      case '6':
         print("Returning to main menu...");
         return;
       default:

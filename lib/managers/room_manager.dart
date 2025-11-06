@@ -8,6 +8,7 @@ import 'package:hospital_management_system__managing_rooms/data/room_repository.
 import 'package:hospital_management_system__managing_rooms/data/bed_repository.dart';
 import 'package:hospital_management_system__managing_rooms/domain/bed.dart';
 import 'package:hospital_management_system__managing_rooms/data/patient_repository.dart';
+import 'package:hospital_management_system__managing_rooms/domain/ward.dart';
 import 'package:hospital_management_system__managing_rooms/managers/patient_manager.dart';
 
 class RoomManager {
@@ -22,6 +23,7 @@ class RoomManager {
   Map<String, Bed> bedById = {};
   Map<String, Patient> patientById = {};
   List<BedAllocation> allocations = [];
+  List<Ward> wards = [];
 
   RoomManager({
     required this.roomFilePath,
@@ -200,6 +202,16 @@ class RoomManager {
       print("Invalid ID");
       return;
     }
+
+    final hasActiveBed = bedById.values.any(
+      (b) =>
+          b.currentAllocation?.patient.id == patient.id &&
+          b.currentAllocation?.status == AllocationStatus.active,
+    );
+    if (hasActiveBed) {
+      print("Patient ${patient.name} already has an allocated bed.");
+      return;
+    }
     final availableBed = bedById.values.where((b) => b.isAvailable()).toList();
     if (availableBed.isEmpty) {
       print("No available bed");
@@ -250,8 +262,8 @@ class RoomManager {
     );
     chosenBed.occupy(allocation);
     bedById[chosenBed.id] = chosenBed;
-    bedRepo.writeBeds(bedById.values.toList());
     roomRepo.writeRooms(rooms);
+    bedRepo.writeBeds(bedById.values.toList());
     print(
       "\nSuccessfully allocated Bed ${chosenBed.bedNumber} in Room ${selectedRoom.roomNumber} to ${patient.name}!",
     );
