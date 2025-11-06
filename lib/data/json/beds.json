@@ -44,21 +44,21 @@
       "id": "1d2e3f4a-5b6c-4789-c012-345678901234",
       "roomId": "3b4c5d6e-7f8a-4789-a012-345678901234",
       "bedNumber": "B",
-      "status": "occupied",
+      "status": "available",
       "currentAllocationId": "3c4d5e6f-7a8b-4789-c012-345678901234",
       "roomNumber": "102",
       "roomType": "semiPrivate",
-      "isAvailable": false
+      "isAvailable": true
     },
     {
       "id": "2e3f4a5b-6c7d-4789-d012-345678901234",
       "roomId": "3b4c5d6e-7f8a-4789-a012-345678901234",
       "bedNumber": "C",
-      "status": "occupied",
+      "status": "available",
       "currentAllocationId": null,
       "roomNumber": "102",
       "roomType": "semiPrivate",
-      "isAvailable": false
+      "isAvailable": true
     },
     {
       "id": "3f4a5b6c-7d8e-4789-e012-345678901234",
@@ -509,6 +509,66 @@
       "roomNumber": "113",
       "roomType": "generalWard",
       "isAvailable": true
+    },
+    {
+      "id": "86fab1f2-14f6-4277-895e-b9b132b72fa5",
+      "roomId": "3b7cd338-bcfd-45a3-aab3-fbe37077aa3b",
+      "bedNumber": "A",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "114",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "04ec6ab4-2610-4f5e-96be-c7b022bae2d2",
+      "roomId": "3b7cd338-bcfd-45a3-aab3-fbe37077aa3b",
+      "bedNumber": "B",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "114",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "5a33084f-eda3-4ad5-81d8-899afbc5a63e",
+      "roomId": "3b7cd338-bcfd-45a3-aab3-fbe37077aa3b",
+      "bedNumber": "C",
+      "status": "available",
+      "currentAllocationId": null,
+      "roomNumber": "114",
+      "roomType": "generalWard",
+      "isAvailable": true
+    },
+    {
+      "id": "8fb19074-badb-4b49-880e-70f7aaf0252d",
+      "roomId": "36f0f4b0-1bbe-4d8b-851d-cce862146557",
+      "bedNumber": "A",
+      "status": "occupied",
+      "currentAllocationId": null,
+      "roomNumber": "115",
+      "roomType": "generalWard",
+      "isAvailable": false
+    },
+    {
+      "id": "31085498-b487-49ee-8137-79bb5eca7d28",
+      "roomId": "36f0f4b0-1bbe-4d8b-851d-cce862146557",
+      "bedNumber": "B",
+      "status": "occupied",
+      "currentAllocationId": null,
+      "roomNumber": "115",
+      "roomType": "generalWard",
+      "isAvailable": false
+    },
+    {
+      "id": "fb56761e-68b4-411a-b787-15bf87925b9b",
+      "roomId": "36f0f4b0-1bbe-4d8b-851d-cce862146557",
+      "bedNumber": "C",
+      "status": "occupied",
+      "currentAllocationId": "3291d78e-13e0-4a5c-9089-1213b2e9762f",
+      "roomNumber": "115",
+      "roomType": "generalWard",
+      "isAvailable": false
     }
   ]
 }

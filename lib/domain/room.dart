@@ -8,7 +8,7 @@ enum RoomType { generalWard, semiPrivate, private, surgical, icu, isolation, mat
 class Room {
   final String id;
   final String roomNumber;
-  final RoomType type;
+  RoomType type;
   final List<Bed> beds;
 
   Room({String? id, required this.roomNumber, required this.type, List<Bed>? beds}) 
