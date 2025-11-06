@@ -24,25 +24,9 @@ void main() {
 
   final roomManager = RoomManager(roomFilePath: 'data/json/rooms.json', roomRepo: roomRepo, bedRepo: bedRepo, patientRepo: patientRepo, allocationRepo: allocationRepo);
   final patientManager = PatientManager(patientFilePath: 'data/json/patients.json', patientRepo: patientRepo);
-  final wardManager = WardManager(
-    wardFilePath: 'data/json/wards.json',
-    wardRepo: wardRepo,
-    roomRepo: roomRepo,
-    bedRepo: bedRepo,
-    hospitalRepo: hospitalRepo,
-  );
-  final bedAllocationManager = BedAllocationManager(
-    allocationFilePath: 'data/json/bed_allocations.json',
-    allocationRepo: allocationRepo,
-    patientManager: patientManager,
-    wardManager: wardManager,
-  );
-  final reservationManager = ReservationManager(
-    reservationFilePath: 'data/json/reservations.json',
-    reservationRepo: reservationRepo,
-    patientManager: patientManager,
-    roomManager: roomManager,
-  );
+  final wardManager = WardManager(wardFilePath: 'data/json/wards.json', wardRepo: wardRepo, roomRepo: roomRepo, bedRepo: bedRepo, hospitalRepo: hospitalRepo);
+  final bedAllocationManager = BedAllocationManager(allocationFilePath: 'data/json/bed_allocations.json', allocationRepo: allocationRepo, patientManager: patientManager, wardManager: wardManager);
+  final reservationManager = ReservationManager(reservationFilePath: 'data/json/reservations.json', reservationRepo: reservationRepo, patientManager: patientManager, roomManager: roomManager);
 
   start(roomManager, patientManager, wardManager, bedAllocationManager, reservationManager);
 }

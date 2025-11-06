@@ -9,12 +9,6 @@ void start(RoomManager roomManager, PatientManager patientManager, WardManager w
   bool running = true;
   while (running) {
     print("\n ==== Hospital (Room Management System) ====");
-    // print("1. View All Rooms");
-    // print("2. Add New Room");
-    // print("3. Allocate Room to Patient");
-    // print("4. Check Room Availability");
-    // print("5. Release Bed");
-    // print("6. Exit");
     print("1. Manage Wards");
     print("2. Manage Rooms");
     print("3. Manage Patients");
@@ -74,7 +68,6 @@ void viewAllPatient(PatientManager patientManager) {
   }
 
   for (var p in patients) {
-    // print('Patient: ${p.name} Age:${p.age} ${p.gender} ${p.contactInfo}');
     print('\nName: ${p.name}');
     print('\nAge: ${p.age}');
     print('\nGender: ${p.gender}');

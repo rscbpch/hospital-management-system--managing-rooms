@@ -22,13 +22,7 @@ class WardManager {
   Map<String, Bed> bedById = {};
   List<Hospital> hospitals = [];
 
-  WardManager({
-    required this.wardFilePath,
-    required this.wardRepo,
-    required this.roomRepo,
-    required this.bedRepo,
-    this.hospitalRepo,
-  }) {
+  WardManager({required this.wardFilePath, required this.wardRepo, required this.roomRepo, required this.bedRepo, this.hospitalRepo}) {
     initialize();
   }
 
